@@ -6,10 +6,7 @@ drop_columns <- c("DT_GERACAO", "HH_GERACAO", "CD_TIPO_ELEICAO", "NM_TIPO_ELEICA
 # consulta cand
 consulta_cand_2016_BRASIL <- fread("~/Downloads/eleicao-2016/consulta_cand_2016/consulta_cand_2016_BRASIL.csv",
                             encoding = "Latin-1", 
-                            drop = c(paste0(drop_columns),
-                                     "TP_ABRANGENCIA",
-                                     "NM_PARTIDO",
-                                     "NM_EMAIL", "NM_SOCIAL_CANDIDATO"))
+                            drop = c(paste0(drop_columns), "TP_ABRANGENCIA", "NM_PARTIDO", "NM_EMAIL", "NM_SOCIAL_CANDIDATO"))
 
 # consulta vagas
 consulta_vagas_2016_BRASIL <- fread("~/Downloads/eleicao-2016/consulta_vagas_2016/consulta_vagas_2016_BRASIL.csv",
