@@ -32,11 +32,3 @@ cand_patrimonio <- cand_2016_BR_rds %>%
   select(SQ_CANDIDATO, NM_CANDIDATO, NM_URNA_CANDIDATO, SG_PARTIDO, NM_UE, SG_UF) %>%
   left_join(grouped_bens, by = "SQ_CANDIDATO") %>%
   replace(is.na(.), 0)
-
-
-
-  
-  
-  
-  
-  
