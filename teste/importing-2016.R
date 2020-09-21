@@ -29,3 +29,4 @@ joined_data <- bem_candidato_2016_BRASIL %>%
   group_by(NM_CANDIDATO, SG_PARTIDO, DS_CARGO) %>%
   summarize(SUM_BEM_CANDIDATO = sum(VR_BEM_CANDIDATO)) %>%
   arrange(desc(SUM_BEM_CANDIDATO))
+# não mostra os candidatos sem bens declarados; se necessário, inverter no left_join()
