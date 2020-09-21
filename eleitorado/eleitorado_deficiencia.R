@@ -58,8 +58,9 @@ df_eleitorado_MUN <- df_eleitorado_2020 %>%
   select(sg_uf, nm_municipio, cd_municipio, n2020, n2018, diferenca, total) %>%
   mutate(n2020_perc = (n2020 / total) * 100)
 
+# erro do TSE - PORTO VERA CRUZ / RS
 df_eleitorado_teste <- df_eleitorado_2018 %>%
-  left_join(df_eleitorado_2020, by = c("sg_uf", "nm_municipio")) %>%
+  left_join(df_eleitorado_2020, by = "cd_municipio") %>%
   filter(is.na(`total.y`))
 
 # dados de 2018 e 2020 + eleitorado / municipio
@@ -69,8 +70,6 @@ df_eleitorado_UF <- df_eleitorado_MUN %>%
             n2018 = sum(n2018),
             diferenca = sum(diferenca),
             total = sum(total)) %>%
-  mutate(n2020_perc = (n2020 / total) * 100) %>%
+  mutate(n2020_perc = ((n2020 - n2018) / n2018) * 100) %>%
   arrange(desc(n2020_perc))
-
-
 
