@@ -37,7 +37,7 @@ candidatos_2000_n2 <- candidatos_2000_n %>%
            cod_num == "41238" | # Belo Horizonte - MG 
            cod_num == "4278" | # Belém - PA
            cod_num == "20516" | # João Pessoa - PB
-           cod_num == "775353" | # Curitiba - PR
+           cod_num == "75353" | # Curitiba - PR
            cod_num == "25313" | # Recife - PE
            cod_num == "12190" | # Teresina - PI
            cod_num == "60011" | # Rio de Janeiro - RJ
