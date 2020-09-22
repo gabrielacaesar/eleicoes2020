@@ -23,32 +23,32 @@ candidatos_2000_n <- candidatos_2000 %>%
   summarise(qt_cand = n()) 
 
 candidatos_2000_n2 <- candidatos_2000_n %>%
-  filter(cod_num == "1392" |
-           cod_num == "27855" |
-           cod_num == "6050" |
-           cod_num == "2550" |
-           cod_num == "38490" |
-           cod_num == "13897" |
-           cod_num == "57053" |
-           cod_num == "93734" |
-           cod_num == "9210" |
-           cod_num == "90670" |
-           cod_num == "90514" |
-           cod_num == "41238" |
-           cod_num == "4278" |
-           cod_num == "20516" |
-           cod_num == "775353" |
-           cod_num == "25313" |
-           cod_num == "12190" |
-           cod_num == "60011" |
-           cod_num == "17612" |
-           cod_num == "88013" |
-           cod_num == "35" |
-           cod_num == "3018" |
-           cod_num == "81051" |
-           cod_num == "71072" |
-           cod_num == "31054" |
-           cod_num == "73440")
+  filter(cod_num == "1392" | # Rio Branco - AC
+           cod_num == "27855" | # Maceió - AL
+           cod_num == "6050" | # Macapá - AP
+           cod_num == "2550" | # Manaus - AM
+           cod_num == "38490" | # Salvador - BA
+           cod_num == "13897" | # Fortaleza - CE
+           cod_num == "57053" | # Vitória - ES
+           cod_num == "93734" | # Goiânia - GO
+           cod_num == "9210" | # São Luís - MA
+           cod_num == "90670" | # Cuiabá - MT
+           cod_num == "90514" | # Campo Grande - MS
+           cod_num == "41238" | # Belo Horizonte - MG 
+           cod_num == "4278" | # Belém - PA
+           cod_num == "20516" | # João Pessoa - PB
+           cod_num == "775353" | # Curitiba - PR
+           cod_num == "25313" | # Recife - PE
+           cod_num == "12190" | # Teresina - PI
+           cod_num == "60011" | # Rio de Janeiro - RJ
+           cod_num == "17612" | # Natal - RN
+           cod_num == "88013" | # Porto Alegre - RS
+           cod_num == "35" | # Porto Velho - RO
+           cod_num == "3018" | # Boa Vista - RR
+           cod_num == "81051" | # Florianópolis - SC
+           cod_num == "71072" | # São Paulo - SP
+           cod_num == "31054" | # Aracaju - SE
+           cod_num == "73440") # Palmas - TO
 
 
 
