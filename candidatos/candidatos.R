@@ -25,7 +25,7 @@ class_column <- c(NR_CPF_CANDIDATO = "character",
                    NR_TITULO_ELEITORAL_CANDIDATO = "character",
                    NR_PROCESSO = "character")
 
-# definindo nomes para cabeçalho de DF de 2012
+# definindo nomes para cabeÃ§alho de DF de 2012, 2008, 2006, 2004 e 2000
 names_column <- c("DT_GERACAO", "HH_GERACAO", "ANO_ELEICAO", 
                   "NR_TURNO", "DS_ELEICAO", "SG_UF", 
                   "SG_UE", "NM_UE", "CD_CARGO", 
@@ -118,10 +118,10 @@ cand_2000_2020 <- cand_2000 %>%
                             "MASCULINO", CD_GENERO)) %>%
   filter(DS_ELEICAO == "ELEICOES 2000" |
          DS_ELEICAO == "ELEICOES 2004" |
-         DS_ELEICAO == "Eleições 2008" |
-         DS_ELEICAO == "ELEIÇÃO MUNICIPAL 2012" |
-         DS_ELEICAO == "Eleições Municipais 2016" |
-         DS_ELEICAO == "Eleições Municipais 2020")
+         DS_ELEICAO == "EleiÃ§Ãµes 2008" |
+         DS_ELEICAO == "ELEIÃ‡ÃƒO MUNICIPAL 2012" |
+         DS_ELEICAO == "EleiÃ§Ãµes Municipais 2016" |
+         DS_ELEICAO == "EleiÃ§Ãµes Municipais 2020")
 
 # saveRDS(cand_2000_2020, file = "cand_2000_2020.rds")
   
