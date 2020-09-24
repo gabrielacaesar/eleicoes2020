@@ -19,14 +19,14 @@ drop_columns <- c("DT_GERACAO", "HH_GERACAO", "CD_TIPO_ELEICAO",
                   "VR_DESPESA_MAX_CAMPANHA", "NR_PROCESSO", "TP_AGREMIACAO")
 
 # definindo texto como classe da coluna
-class_column <- c(NR_CPF_CANDIDATO = "character", 
+class_columns <- c(NR_CPF_CANDIDATO = "character", 
                    SQ_CANDIDATO = "character",
                    SQ_COLIGACAO = "character",
                    NR_TITULO_ELEITORAL_CANDIDATO = "character",
                    NR_PROCESSO = "character")
 
 # definindo nomes para cabeçalho de DF de 2012, 2008, 2006, 2004 e 2000
-names_column <- c("DT_GERACAO", "HH_GERACAO", "ANO_ELEICAO", 
+names_columns <- c("DT_GERACAO", "HH_GERACAO", "ANO_ELEICAO", 
                   "NR_TURNO", "DS_ELEICAO", "SG_UF", 
                   "SG_UE", "NM_UE", "CD_CARGO", 
                   "DS_CARGO", "NM_CANDIDATO", "SQ_CANDIDATO", 
@@ -46,21 +46,21 @@ names_column <- c("DT_GERACAO", "HH_GERACAO", "ANO_ELEICAO",
 
 # leitura de BRASIL - 2020
 cand_2020 <- fread("C:/Users/acaesar/Downloads/24set2020/consulta_cand_2020_24set2020/consulta_cand_2020_BRASIL.csv",
-                   encoding = "Latin-1", drop = drop_columns, colClasses = class_column)
+                   encoding = "Latin-1", drop = drop_columns, colClasses = class_columns)
 
 # leitura de BRASIL - 2016
 cand_2016 <- fread("C:/Users/acaesar/Downloads/candidatos/consulta_cand_2016/consulta_cand_2016_BRASIL.csv",
-                   encoding = "Latin-1", drop = drop_columns, colClasses = class_column)
+                   encoding = "Latin-1", drop = drop_columns, colClasses = class_columns)
 
 # leitura de todas as UFs - 2012
 path_2012 <- "C:/Users/acaesar/Downloads/candidatos/consulta_cand_2012/"
 cand_2012 <- map_df(paste0(path_2012, list.files(path_2012, pattern = "*txt")), fread, 
-                           encoding = "Latin-1", col.names = names_column, drop = drop_columns, colClasses = class_column)
+                           encoding = "Latin-1", col.names = names_columns, drop = drop_columns, colClasses = class_columns)
 
 # leitura de todas as UFs - 2008
 path_2008 <- "C:/Users/acaesar/Downloads/candidatos/consulta_cand_2008/"
 cand_2008 <- map_df(paste0(path_2008, list.files(path_2008, pattern = "*txt")), read_delim, delim = ";",
-                    col_names = names_column, col_types = cols(SG_UE = col_character(), 
+                    col_names = names_columns, col_types = cols(SG_UE = col_character(), 
                     CD_SITUACAO_CANDIDATURA = col_character(), NR_PARTIDO = col_character(),
                     CD_LEGENDA = col_character(), CD_OCUPACAO = col_character(), 
                     CD_GENERO = col_character(), CD_GRAU_INSTRUCAO = col_character(),
@@ -71,7 +71,7 @@ cand_2008 <- map_df(paste0(path_2008, list.files(path_2008, pattern = "*txt")), 
 # leitura de todas as UFs - 2004
 path_2004 <- "C:/Users/acaesar/Downloads/candidatos/consulta_cand_2004/"
 cand_2004 <- map_df(paste0(path_2004, list.files(path_2004, pattern = "*txt")), read_delim, delim = ";",
-                    col_names = names_column, col_types = cols(SG_UE = col_character(), 
+                    col_names = names_columns, col_types = cols(SG_UE = col_character(), 
                                                                CD_SITUACAO_CANDIDATURA = col_character(), NR_PARTIDO = col_character(),
                                                                CD_LEGENDA = col_character(), CD_OCUPACAO = col_character(), 
                                                                CD_GENERO = col_character(), CD_GRAU_INSTRUCAO = col_character(),
@@ -83,7 +83,7 @@ cand_2004 <- map_df(paste0(path_2004, list.files(path_2004, pattern = "*txt")), 
 # leitura de todas as UFs - 2000
 path_2000 <- "C:/Users/acaesar/Downloads/candidatos/consulta_cand_2000/"
 cand_2000 <- map_df(paste0(path_2000, list.files(path_2000, pattern = "*txt")), read_delim, delim = ";",
-                    col_names = names_column, col_types = cols(SG_UE = col_character(), 
+                    col_names = names_columns, col_types = cols(SG_UE = col_character(), 
                                                                CD_SITUACAO_CANDIDATURA = col_character(), NR_PARTIDO = col_character(),
                                                                CD_LEGENDA = col_character(), CD_OCUPACAO = col_character(), 
                                                                CD_GENERO = col_character(), CD_GRAU_INSTRUCAO = col_character(),
