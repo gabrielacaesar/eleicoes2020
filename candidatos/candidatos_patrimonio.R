@@ -2,7 +2,7 @@
 library(tidyverse)
 library(data.table)
 
-# importing CSV; saving and reading as RDS
+# importing CSV
 ## cand
 cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_28set2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", encoding = "Latin-1")
 
