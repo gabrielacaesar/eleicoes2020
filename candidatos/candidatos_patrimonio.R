@@ -13,7 +13,6 @@ bens_cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_28set2020/bem_candi
 # grouping properties and calculating total
 grouped_bens <- bens_cand_2020_BR %>%
   mutate(VR_BEM_CANDIDATO = str_replace_all(VR_BEM_CANDIDATO, "\\,", "."),
-         #VR_BEM_CANDIDATO = str_remove_all(VR_BEM_CANDIDATO, "\-")
          VR_BEM_CANDIDATO = as.double(VR_BEM_CANDIDATO)) %>%
   group_by(SQ_CANDIDATO) %>%
   summarise(total_patrimonio = sum(VR_BEM_CANDIDATO))
