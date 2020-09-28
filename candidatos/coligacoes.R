@@ -42,8 +42,6 @@ most_freq_coligacoes <- freq_coligacoes %>%
 
 
 PT_coligacoes <- cand_2020_BR %>%
-  filter(str_detect(DS_COMPOSICAO_COLIGACAO, "PT")) %>%
+  filter(str_detect(DS_COMPOSICAO_COLIGACAO, "PT ")) %>%
   group_by(DS_COMPOSICAO_COLIGACAO) %>%
   summarise(int = n())
-
-
