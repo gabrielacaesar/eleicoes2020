@@ -174,7 +174,7 @@ cand_patrimonio_2020_2018_2016 <- cand_patrimonio_2020 %>%
            SG_UE_2020 == "81051" | # Florianópolis - SC
            SG_UE_2020 == "71072" | # São Paulo - SP
            SG_UE_2020 == "31054" | # Aracaju - SE
-           SG_UE_2020 == "73440") %>%
+           SG_UE_2020 == "73440") %>% # Palmas - TO
   distinct(SQ_CANDIDATO_2020, .keep_all = TRUE) %>%
   filter(NM_CANDIDATO_2016 != "NA" | NM_CANDIDATO_2018 != "NA")
 
