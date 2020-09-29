@@ -132,7 +132,6 @@ cand_patrimonio_2016 <- cand_2016_BR %>%
 cand_patrimonio_2020_2018_2016 <- cand_patrimonio_2020 %>%
     left_join(cand_patrimonio_2016, by = "NR_CPF_CANDIDATO") %>%
     left_join(cand_patrimonio_2018, by = "NR_CPF_CANDIDATO") %>%
-  # filter(NM_CANDIDATO_2016 != "NA") %>%
     mutate(dif_patrimonio_16 = patrimonio_2020 - patrimonio_2016,
           var_patrimonio_16 = round(((patrimonio_2020 - patrimonio_2016) / patrimonio_2016) * 100),
           dif_patrimonio_18 = patrimonio_2020 - patrimonio_2018,
@@ -151,19 +150,19 @@ cand_patrimonio_2020_2018_2016 <- cand_patrimonio_2020 %>%
            NR_CPF_CANDIDATO) %>%
   filter(DS_CARGO_2020 == "PREFEITO") %>%
   filter(SG_UE_2020 == "1392" | # Rio Branco - AC
-           SG_UE_2020 == "27855" | # MaceiÛ - AL
-           SG_UE_2020 == "6050" | # Macap· - AP
+           SG_UE_2020 == "27855" | # Macei√≥ - AL
+           SG_UE_2020 == "6050" | # Macap√° - AP
            SG_UE_2020 == "2550" | # Manaus - AM
            SG_UE_2020 == "38490" | # Salvador - BA
            SG_UE_2020 == "13897" | # Fortaleza - CE
-           SG_UE_2020 == "57053" | # VitÛria - ES
-           SG_UE_2020 == "93734" | # Goi‚nia - GO
-           SG_UE_2020 == "9210" | # S„o LuÌs - MA
-           SG_UE_2020 == "90670" | # Cuiab· - MT
+           SG_UE_2020 == "57053" | # Vit√≥ria - ES
+           SG_UE_2020 == "93734" | # Goi√¢nia - GO
+           SG_UE_2020 == "9210" | # S√£o Lu√≠s - MA
+           SG_UE_2020 == "90670" | # Cuiab√° - MT
            SG_UE_2020 == "90514" | # Campo Grande - MS
            SG_UE_2020 == "41238" | # Belo Horizonte - MG 
-           SG_UE_2020 == "4278" | # BelÈm - PA
-           SG_UE_2020 == "20516" | # Jo„o Pessoa - PB
+           SG_UE_2020 == "4278" | # Bel√©m - PA
+           SG_UE_2020 == "20516" | # Jo√£o Pessoa - PB
            SG_UE_2020 == "75353" | # Curitiba - PR
            SG_UE_2020 == "25313" | # Recife - PE
            SG_UE_2020 == "12190" | # Teresina - PI
@@ -172,12 +171,11 @@ cand_patrimonio_2020_2018_2016 <- cand_patrimonio_2020 %>%
            SG_UE_2020 == "88013" | # Porto Alegre - RS
            SG_UE_2020 == "35" | # Porto Velho - RO
            SG_UE_2020 == "3018" | # Boa Vista - RR
-           SG_UE_2020 == "81051" | # FlorianÛpolis - SC
-           SG_UE_2020 == "71072" | # S„o Paulo - SP
+           SG_UE_2020 == "81051" | # Florian√≥polis - SC
+           SG_UE_2020 == "71072" | # S√£o Paulo - SP
            SG_UE_2020 == "31054" | # Aracaju - SE
            SG_UE_2020 == "73440") %>%
   distinct(SQ_CANDIDATO_2020, .keep_all = TRUE) %>%
   filter(NM_CANDIDATO_2016 != "NA" | NM_CANDIDATO_2018 != "NA")
 
 write.csv(cand_patrimonio_2020_2018_2016, "cand_patrimonio_2020_2018_2016.csv")
-
