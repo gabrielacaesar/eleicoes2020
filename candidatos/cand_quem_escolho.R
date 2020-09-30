@@ -31,11 +31,20 @@ cand_patrimonio <- cand_2020_BR %>%
   replace(is.na(.), 0) 
 
 # RIO BRANCO + select
-quem_escolho_RIO_BRANCO <- cand_patrimonio %>%
-  select(SQ_CANDIDATO, SG_UE, SG_UF, NM_UE, NM_CANDIDATO, NM_URNA_CANDIDATO, NR_CPF_CANDIDATO, SG_PARTIDO, DS_OCUPACAO, 
+quem_escolho_RIO_BRANCO_vereador <- cand_patrimonio %>%
+  select(DS_CARGO, SQ_CANDIDATO, SG_UE, SG_UF, NM_UE, NM_CANDIDATO, NM_URNA_CANDIDATO, NR_CPF_CANDIDATO, SG_PARTIDO, DS_OCUPACAO, 
          NR_IDADE_DATA_POSSE, DS_GENERO, DS_COR_RACA, DS_GRAU_INSTRUCAO, total_patrimonio, NR_CANDIDATO, NM_EMAIL) %>%
-  filter(SG_UE == "1392")
+  filter(SG_UE == "1392") %>%
+  filter(DS_CARGO == "VEREADOR") %>%
+  distinct(SQ_CANDIDATO, .keep_all = TRUE)
 
-write.csv(quem_escolho_RIO_BRANCO, "quem_escolho_RIO_BRANCO.csv")
-write.csv(cand_patrimonio, "cand_patrimonio_30set2020.csv")
-         
+write.csv(quem_escolho_RIO_BRANCO_vereador, "quem_escolho_RIO_BRANCO_vereador.csv")
+
+# BRASIL - PREFEITO + select
+quem_escolho_PREFEITO_BR <- cand_patrimonio %>%
+  select(DS_CARGO, SQ_CANDIDATO, SG_UE, SG_UF, NM_UE, NM_CANDIDATO, NM_URNA_CANDIDATO, NR_CPF_CANDIDATO, SG_PARTIDO, DS_OCUPACAO, 
+         NR_IDADE_DATA_POSSE, DS_GENERO, DS_COR_RACA, DS_GRAU_INSTRUCAO, total_patrimonio, NR_CANDIDATO, NM_EMAIL) %>%
+  filter(DS_CARGO == "PREFEITO") %>%
+  distinct(SQ_CANDIDATO, .keep_all = TRUE)
+
+write.csv(quem_escolho_PREFEITO_BR, "quem_escolho_PREFEITO_BR.csv")
