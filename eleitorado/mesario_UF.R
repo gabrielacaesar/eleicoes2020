@@ -1,4 +1,4 @@
-# reading libraries
+# leitura de pacotes
 library(tidyverse)
 library(data.table)
 
@@ -16,7 +16,7 @@ secao_eleitoral <- map_df(paste0(path, list.files(path, pattern = "*csv")), frea
 saveRDS(secao_eleitoral, file = "secao_eleitoral_2020.rds")
 secao_eleitoral_rds <- readRDS("secao_eleitoral_2020.rds")
 
-# verificando número de seções por UF
+# verificando nÃºmero de seÃ§Ãµes por UF
 t <- secao_eleitoral_rds %>%
   distinct(SG_UF, NR_ZONA, NR_SECAO, .keep_all = T) %>%
   group_by(SG_UF, NR_SECAO) %>%
