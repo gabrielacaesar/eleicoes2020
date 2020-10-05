@@ -12,11 +12,11 @@ path <- "C:/Users/acaesar/Downloads/perfil_eleitor_secao_2020_BR/BRASIL/"
 secao_eleitoral <- map_df(paste0(path, list.files(path, pattern = "*csv")), fread, 
             encoding = "Latin-1", select = select_column)
 
-# salvando e lemdo como RDS
+# salva e lê como RDS
 saveRDS(secao_eleitoral, file = "secao_eleitoral_2020.rds")
 secao_eleitoral_rds <- readRDS("secao_eleitoral_2020.rds")
 
-# verificando número de seções por UF
+# verifica número de seções por UF
 t <- secao_eleitoral_rds %>%
   distinct(SG_UF, NR_ZONA, NR_SECAO, .keep_all = T) %>%
   group_by(SG_UF, NR_SECAO) %>%
