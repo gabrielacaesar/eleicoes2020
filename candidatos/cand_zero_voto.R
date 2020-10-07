@@ -27,7 +27,7 @@ drop_columns <- c("DT_GERACAO", "HH_GERACAO", "CD_TIPO_ELEICAO",
                   "VR_DESPESA_MAX_CAMPANHA", "NR_PROCESSO", "TP_AGREMIACAO")
 
 # importing CSV - CAND
-cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_5out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv",
+cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_6out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv",
                    encoding = "Latin-1",
                    drop = drop_columns,
                    colClasses = class_columns)
@@ -54,15 +54,16 @@ eleitorado_2020_n <- eleitorado_2020 %>%
 # RESULT - 2016
 resultado_2016_n <- resultado_2016 %>%
   group_by(NR_TURNO, SQ_CANDIDATO, NM_CANDIDATO, NM_URNA_CANDIDATO) %>%
-  summarize(votos_2016 = sum(QT_VOTOS_NOMINAIS)) %>%
-  arrange(desc(votos_2016)) %>%
+  summarize(votos = sum(QT_VOTOS_NOMINAIS)) %>%
+  arrange(desc(votos)) %>%
   filter(NR_TURNO == 1) %>%
   ungroup() %>%
-  filter(votos_2016 == 0) %>%
-  select(SQ_CANDIDATO, votos_2016) %>%
+  filter(votos == 0) %>%
+  select(SQ_CANDIDATO, votos) %>%
   left_join(cand_2016, by = "SQ_CANDIDATO") %>%
   filter(DS_CARGO == "VEREADOR") %>%
   filter(DS_GENERO == "FEMININO") %>%
+  filter(DS_DETALHE_SITUACAO_CAND == "DEFERIDO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PTN", "PODE")) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PMDB", "MDB")) %>%
@@ -91,9 +92,57 @@ cand_2016_2020 <- resultado_2016_n %>%
             ANO_ELEICAO_2020, NR_TURNO_2020, DS_ELEICAO_2020, CD_GENERO_2020,
             DS_COR_RACA_2020, NR_CANDIDATO_2020, SQ_COLIGACAO_2020, NM_COLIGACAO_2020,
             DS_COMPOSICAO_COLIGACAO_2020)) %>%
-  filter(DS_DETALHE_SITUACAO_CAND_2016 == "DEFERIDO") %>%
   mutate(check_partido = SG_PARTIDO_2016 == SG_PARTIDO_2020,
          check_titulo = NR_TITULO_ELEITORAL_CANDIDATO_2016 == NR_TITULO_ELEITORAL_CANDIDATO_2020) %>%
-  left_join(eleitorado_2020_n, by = c("SG_UE_2020" = "SG_UE"))
+  left_join(eleitorado_2020_n, by = c("SG_UE_2020" = "SG_UE")) %>%
+  select(SQ_CANDIDATO_2016, votos_2016, SG_UF_2016, SG_UF_2020,
+         SG_UE_2016, SG_UE_2020, NM_UE_2016, NM_UE_2020,
+         DS_CARGO_2016, DS_CARGO_2020, NM_CANDIDATO_2016,
+         NM_CANDIDATO_2020, NM_URNA_CANDIDATO_2016, 
+         NM_URNA_CANDIDATO_2020, SG_PARTIDO_2016,
+         SG_PARTIDO_2020, check_partido, DS_GENERO_2016, DS_GENERO_2020,
+         NR_TITULO_ELEITORAL_CANDIDATO_2016, NR_TITULO_ELEITORAL_CANDIDATO_2020,
+         check_titulo, DS_SITUACAO_CANDIDATURA_2020, NM_EMAIL_2016, NM_EMAIL_2020)
   
 write.csv(cand_2016_2020, "cand_2016_2020.csv")
+
+# mudou partido
+partido_2016_2020 <- cand_2016_2020 %>%
+  group_by(check_partido) %>%
+  summarise(int = n()) %>%
+  pivot_wider(values_from = int, names_from = check_partido) %>%
+  janitor::clean_names() %>%
+  mutate(total = false + true,
+         false_perc = (false / total) * 100,
+         true_perc = (true / total) * 100)
+  
+  
+# mudou cidade
+city_2016_2020 <- cand_2016_2020 %>%
+  mutate(check_city = SG_UE_2016 == SG_UE_2020) %>%
+  group_by(check_city) %>%
+  summarise(int = n()) %>%
+  pivot_wider(values_from = int, names_from = check_city) %>%
+  janitor::clean_names() %>%
+  mutate(total = false + true,
+         false_perc = (false / total) * 100,
+         true_perc = (true / total) * 100)
+
+# cargo disputa
+cargo_2016_2020 <- cand_2016_2020 %>%
+  group_by(DS_CARGO_2020) %>%
+  summarise(int = n()) %>%
+  pivot_wider(values_from = int, names_from = DS_CARGO_2020) %>%
+  janitor::clean_names() %>%
+  mutate(total = prefeito + vice_prefeito + vereador,
+         ver_perc = (vereador / total) * 100)
+
+# partido disputa
+sigla_2016_2020 <- cand_2016_2020 %>%
+  group_by(SG_PARTIDO_2020) %>%
+  summarise(int = n())
+
+# UF disputa
+UF_2016_2020 <- cand_2016_2020 %>%
+  group_by(SG_UF_2020) %>%
+  summarise(int = n()) 
