@@ -55,13 +55,22 @@ arquivo_tidy_3 <- arquivo_tidy_2 %>%
          candidato = str_replace_all(candidato, "DEM", "(DEM)"),
          candidato = str_replace_all(candidato, "PSL", "(PSL)"),
          candidato = str_replace_all(candidato, "PSTU", "(PSTU)"),
+         candidato = str_replace_all(candidato, "PTB", "(PTB)"),
          candidato = str_replace_all(candidato, "PT", "(PT)"),
          candidato = str_replace_all(candidato, "PSC", "(PSC)"),
          candidato = str_replace_all(candidato, "PSOL", "(PSOL)"),
          candidato = str_replace_all(candidato, "PCO", "(PCO)"),
          candidato = str_replace_all(candidato, "PDT", "(PDT)"),
          candidato = str_replace_all(candidato, "REPUBLICANOS", "(Republicanos)"),
-         candidato = str_replace_all(candidato, "PMB", "(PMB)"))
+         candidato = str_replace_all(candidato, "PMB", "(PMB)"),
+         candidato = str_replace_all(candidato, "PSDB", "(PSDB)"),
+         candidato = str_replace_all(candidato, "PSD", "(PSD)"),
+         candidato = str_replace_all(candidato, "PATRIOTA", "(Patriota)"),
+         candidato = str_replace_all(candidato, "PRTB", "(PRTB)"),
+         candidato = str_replace_all(candidato, "PSB", "(PSB)"),
+         candidato = str_replace_all(candidato, "PC DO B", "(PCdoB)"),
+         candidato = str_replace_all(candidato, "AVANTE", "(Avante)"),
+         candidato = str_replace_all(candidato, "CIDADANIA", "(Cidadania)"))
 
 # ordenar considerando total
 ordem_candidatos <- arquivo_tidy_3 %>%
