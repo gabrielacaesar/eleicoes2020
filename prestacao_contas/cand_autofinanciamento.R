@@ -44,7 +44,7 @@ class_columns_2 <- c(SQ_PRESTADOR_CONTAS = "character",
                    SQ_RECEITA = "character")
 
 # importing CSV - candidatos
-cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_6out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
+cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_8out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
                       encoding = "Latin-1",
                       drop = drop_columns,
                       colClasses = class_columns)
