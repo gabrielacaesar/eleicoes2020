@@ -20,15 +20,15 @@ drop_columns <- c("DT_GERACAO", "HH_GERACAO", "CD_TIPO_ELEICAO",
                   "VR_DESPESA_MAX_CAMPANHA", "NR_PROCESSO", "TP_AGREMIACAO")
 
 # importing CSV - candidatos
-cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_6out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
+cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_8out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
                       encoding = "Latin-1",
                       drop = drop_columns)
 
-# importing CSV - prestação de contas / ÓRGÃOS PARTIDÁRIOS
+# importing CSV - prestaÃ§Ã£o de contas / Ã“RGÃƒOS PARTIDÃRIOS
 receitas_orgaos_partidarios <- fread("C:/Users/acaesar/Downloads/dados_8out2020/prestacao_de_contas_eleitorais_orgaos_partidarios_2020/receitas_orgaos_partidarios_2020_BRASIL.csv",
                                      encoding = "Latin-1")
 
-# importing CSV - prestação de contas / CANDIDATOS
+# importing CSV - prestaÃ§Ã£o de contas / CANDIDATOS
 receitas_candidatos <- fread("C:/Users/acaesar/Downloads/dados_8out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
                              encoding = "Latin-1")
 
@@ -37,7 +37,7 @@ receitas_candidatos_n <- receitas_candidatos %>%
   group_by(SQ_CANDIDATO, NR_CPF_CNPJ_DOADOR, DS_ESPECIE_RECEITA) %>%
   summarise(int = sum(as.double(VR_RECEITA))) %>%
   left_join(cand_2020_BR, by = "SQ_CANDIDATO") %>%
-  filter(DS_ESPECIE_RECEITA == "Depósito em espécie" |
-         DS_ESPECIE_RECEITA == "Em espécie") %>%
+  filter(DS_ESPECIE_RECEITA == "DepÃ³sito em espÃ©cie" |
+         DS_ESPECIE_RECEITA == "Em espÃ©cie") %>%
   filter(int > 1604.10) 
 
