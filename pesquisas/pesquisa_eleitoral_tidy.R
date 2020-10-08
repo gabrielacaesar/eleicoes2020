@@ -1,17 +1,17 @@
-# instalar pacotes (se necessário)
+# instalar pacote (se necessário)
 # install.packages("tidyverse")
 
-# ler pacotes
+# ler pacote
 library(tidyverse)
 
 # definir pasta
 path <- "C:/Users/acaesar/Documents/new_pesquisas/RJ/RJ/"
 setwd(path)
 
-# ler arquivo
+# ler todos os arquivos
 arquivo_bruto <- list.files(path) %>%
-     set_names() %>%
-     map_df(read_delim, 
+  set_names() %>%
+  map_df(read_delim, 
             delim = ",", 
             col_names = FALSE,
             .id = "arquivo")
