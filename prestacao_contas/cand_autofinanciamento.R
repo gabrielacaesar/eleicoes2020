@@ -34,7 +34,7 @@ class_columns <- c(NR_CPF_CANDIDATO = "character",
                    NR_TITULO_ELEITORAL_CANDIDATO = "character",
                    NR_PROCESSO = "character")
 
-# colunas para definir classe / prestação de contas
+# colunas para definir classe / prestaÃ§Ã£o de contas
 class_columns_2 <- c(SQ_PRESTADOR_CONTAS = "character", 
                    SQ_CANDIDATO = "character",
                    NR_CPF_CNPJ_DOADOR = "character",
@@ -49,19 +49,17 @@ cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_6out2020/consulta_cand_2
                       drop = drop_columns,
                       colClasses = class_columns)
 
-# importing CSV - prestação de contas / CANDIDATOS
+# importing CSV - prestaÃ§Ã£o de contas / CANDIDATOS
 receitas_candidatos <- fread("C:/Users/acaesar/Downloads/dados_8out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
                              encoding = "Latin-1",
                              select = select_columns,
                              colClasses = class_columns_2)
 
-Varanda Suspensa
-
-# 
+# anÃ¡lise
 recursos_proprios <- receitas_candidatos %>%
   mutate(VR_RECEITA = readr::parse_number(VR_RECEITA, 
                 locale = readr::locale(decimal_mark = ","))) %>%
-  filter(DS_ORIGEM_RECEITA == "Recursos próprios") %>%
+  filter(DS_ORIGEM_RECEITA == "Recursos prÃ³prios") %>%
   group_by(SQ_CANDIDATO) %>%
   summarise(int = sum(VR_RECEITA)) %>%
   left_join(cand_2020_BR, by = "SQ_CANDIDATO") %>%
