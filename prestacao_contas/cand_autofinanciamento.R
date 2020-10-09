@@ -17,7 +17,7 @@ drop_columns <- c("DT_GERACAO", "HH_GERACAO", "CD_TIPO_ELEICAO",
                   "DS_ESTADO_CIVIL", "DS_OCUPACAO", "DS_SIT_TOT_TURNO",
                   "NR_PROTOCOLO_CANDIDATURA", "DS_SITUACAO_CANDIDATO_PLEITO",
                   "DS_SITUACAO_CANDIDATO_URNA", "ST_CANDIDATO_INSERIDO_URNA",
-                  "VR_DESPESA_MAX_CAMPANHA", "NR_PROCESSO", "TP_AGREMIACAO")
+                  "NR_PROCESSO", "TP_AGREMIACAO")
 
 # colunas para selecionar
 select_columns <- c("DT_PRESTACAO_CONTAS", "SQ_PRESTADOR_CONTAS", "NR_CNPJ_PRESTADOR_CONTA",
@@ -36,33 +36,58 @@ class_columns <- c(NR_CPF_CANDIDATO = "character",
 
 # colunas para definir classe / prestação de contas
 class_columns_2 <- c(SQ_PRESTADOR_CONTAS = "character", 
-                   SQ_CANDIDATO = "character",
-                   NR_CPF_CNPJ_DOADOR = "character",
-                   SQ_CANDIDATO_DOADOR = "character",
-                   NR_RECIBO_DOACAO = "character",
-                   NR_DOCUMENTO_DOACAO = 'character',
-                   SQ_RECEITA = "character")
+                     SQ_CANDIDATO = "character",
+                     NR_CPF_CNPJ_DOADOR = "character",
+                     SQ_CANDIDATO_DOADOR = "character",
+                     NR_RECIBO_DOACAO = "character",
+                     NR_DOCUMENTO_DOACAO = 'character',
+                     SQ_RECEITA = "character")
 
 # importing CSV - candidatos
-cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_8out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
+cand_2020_BR <- fread("~/Downloads/dados_9out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
                       encoding = "Latin-1",
                       drop = drop_columns,
                       colClasses = class_columns)
 
 # importing CSV - prestação de contas / CANDIDATOS
-receitas_candidatos <- fread("C:/Users/acaesar/Downloads/dados_8out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
+receitas_candidatos <- fread("~/Downloads/dados_9out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
                              encoding = "Latin-1",
                              select = select_columns,
                              colClasses = class_columns_2)
 
-# análise
+# análise - POR TIPO
+grouped_receitas_candidatos <- receitas_candidatos %>%
+  mutate(VR_RECEITA = readr::parse_number(VR_RECEITA, 
+                                          locale = readr::locale(decimal_mark = ","))) %>%
+  group_by(DS_ORIGEM_RECEITA) %>%
+  summarise(int = sum(VR_RECEITA)) 
+
+write.csv(grouped_receitas_candidatos, "grouped_receitas_candidatos.csv")
+
+# análise - RECURSOS PROPRIOS
 recursos_proprios <- receitas_candidatos %>%
   mutate(VR_RECEITA = readr::parse_number(VR_RECEITA, 
-                locale = readr::locale(decimal_mark = ","))) %>%
+                                          locale = readr::locale(decimal_mark = ","))) %>%
   filter(DS_ORIGEM_RECEITA == "Recursos próprios") %>%
   group_by(SQ_CANDIDATO) %>%
   summarise(int = sum(VR_RECEITA)) %>%
   left_join(cand_2020_BR, by = "SQ_CANDIDATO") %>%
   select(-c(ANO_ELEICAO, NR_TURNO, DS_ELEICAO)) %>%
-  arrange(desc(int))
+  arrange(desc(int)) %>%
+  mutate(faixa_doacao = case_when(int >= 100000 ~ "a_partir_de_100_mil",
+         int >= 50000 & int < 100000 ~ "de_50_a_100_mil",
+         int >= 25000 & int < 50000 ~ "de_25_a_50_mil",
+         int >= 10000 & int < 25000 ~ "de_10_a_25_mil",
+         int >= 5000 & int < 10000 ~ "de_5_a_10_mil",
+         int >= 0 & int < 5000 ~ "de_0_a_5_mil")) %>%
+  # filter(faixa_doacao == "a_partir_de_100_mil")
+  group_by(faixa_doacao) %>%
+  summarise(valor = n())
   
+write.csv(recursos_proprios, "recursos_proprios.csv")
+
+# análise - LIMITE GASTOS
+teto_gastos <- cand_2020_BR %>%
+  select(NM_UE, SG_UF, DS_CARGO, VR_DESPESA_MAX_CAMPANHA) %>%
+  filter(DS_CARGO != "VICE-PREFEITO") %>%
+  distinct(NM_UE, SG_UF, VR_DESPESA_MAX_CAMPANHA, .keep_all = TRUE)
