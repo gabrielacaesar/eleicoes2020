@@ -62,7 +62,7 @@ grouped_receitas_candidatos <- receitas_candidatos %>%
   group_by(DS_ORIGEM_RECEITA) %>%
   summarise(int = sum(VR_RECEITA)) 
 
-write.csv(grouped_receitas_candidatos, "grouped_receitas_candidatos.csv")
+# write.csv(grouped_receitas_candidatos, "grouped_receitas_candidatos.csv")
 
 # análise - RECURSOS PROPRIOS
 recursos_proprios <- receitas_candidatos %>%
@@ -74,20 +74,23 @@ recursos_proprios <- receitas_candidatos %>%
   left_join(cand_2020_BR, by = "SQ_CANDIDATO") %>%
   select(-c(ANO_ELEICAO, NR_TURNO, DS_ELEICAO)) %>%
   arrange(desc(int)) %>%
-  mutate(faixa_doacao = case_when(int >= 100000 ~ "a_partir_de_100_mil",
-         int >= 50000 & int < 100000 ~ "de_50_a_100_mil",
-         int >= 25000 & int < 50000 ~ "de_25_a_50_mil",
-         int >= 10000 & int < 25000 ~ "de_10_a_25_mil",
-         int >= 5000 & int < 10000 ~ "de_5_a_10_mil",
-         int >= 0 & int < 5000 ~ "de_0_a_5_mil")) %>%
-  # filter(faixa_doacao == "a_partir_de_100_mil")
+  mutate(faixa_doacao = case_when(int > 100000 ~ "acima_de_100_mil",
+         int > 50000 & int <= 100000 ~ "de_50_a_100_mil",
+         int > 25000 & int <= 50000 ~ "de_25_a_50_mil",
+         int > 10000 & int <= 25000 ~ "de_10_a_25_mil",
+         int > 5000 & int <= 10000 ~ "de_5_a_10_mil",
+         int > 0 & int <= 5000 ~ "de_0_a_5_mil")) %>%
+  # filter(faixa_doacao == "acima_de_100_mil")
   group_by(faixa_doacao) %>%
   summarise(valor = n())
   
-write.csv(recursos_proprios, "recursos_proprios.csv")
+
+# write.csv(recursos_proprios, "recursos_proprios.csv")
 
 # análise - LIMITE GASTOS
 teto_gastos <- cand_2020_BR %>%
   select(NM_UE, SG_UF, DS_CARGO, VR_DESPESA_MAX_CAMPANHA) %>%
   filter(DS_CARGO != "VICE-PREFEITO") %>%
   distinct(NM_UE, SG_UF, VR_DESPESA_MAX_CAMPANHA, .keep_all = TRUE)
+
+
