@@ -30,7 +30,7 @@ cand_patrimonio <- cand_2020_BR %>%
   left_join(grouped_bens, by = "SQ_CANDIDATO") %>%
   replace(is.na(.), 0) 
 
-# RIO BRANCO + select
+# select capitais / VEREADOR
 quem_escolho_vereador <- cand_patrimonio %>%
   select(DS_CARGO, DS_DETALHE_SITUACAO_CAND, SQ_CANDIDATO, SG_UE, SG_UF, NM_UE, NM_CANDIDATO, NM_URNA_CANDIDATO, NR_CPF_CANDIDATO, SG_PARTIDO, DS_OCUPACAO, 
          NR_IDADE_DATA_POSSE, DS_GENERO, DS_COR_RACA, DS_GRAU_INSTRUCAO, total_patrimonio, NR_CANDIDATO, NM_EMAIL) %>%
