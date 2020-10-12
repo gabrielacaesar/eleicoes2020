@@ -72,7 +72,7 @@ grouped_bens_2020 <- bens_2020_BR %>%
 # cand - bens
 cand_patrimonio_2020 <- cand_2020_BR %>%
   select(SQ_CANDIDATO, DS_CARGO, NM_CANDIDATO, NM_URNA_CANDIDATO, 
-         NR_CPF_CANDIDATO, NR_TITULO_ELEITORAL_CANDIDATO,
+         NM_EMAIL, NR_CPF_CANDIDATO, NR_TITULO_ELEITORAL_CANDIDATO,
          SG_PARTIDO, SG_UE, NM_UE, SG_UF) %>%
   left_join(grouped_bens_2020, by = "SQ_CANDIDATO") %>%
   replace(is.na(.), 0)
@@ -94,7 +94,7 @@ recursos_proprios <- receitas_candidatos %>%
   filter(diferenca < 0) %>%
   arrange(desc(diferenca)) %>%
   ungroup() %>%
-  select(DS_CARGO, NM_CANDIDATO, NM_URNA_CANDIDATO, SG_PARTIDO, SG_UF, NM_UE, SG_UE, 
+  select(DS_CARGO, NM_EMAIL, NM_CANDIDATO, NM_URNA_CANDIDATO, SG_PARTIDO, SG_UF, NM_UE,
          recursos_proprios, total_patrimonio, variacao, diferenca, SQ_CANDIDATO, 
          NR_TITULO_ELEITORAL_CANDIDATO)
 
