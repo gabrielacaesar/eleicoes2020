@@ -1,4 +1,4 @@
-# instalar pacote (se necessário)
+instalar pacote (se necessário)
 # install.packages("tidyverse")
 
 # ler pacote
@@ -24,9 +24,9 @@ arquivo_bruto <- list.files(path) %>%
 # separar em colunas
 arquivo_tidy <- arquivo_bruto %>%
   separate(arquivo, into = c("tipo_arquivo", "instituto", "cidade", 
-                   "categoria", "tipo_categoria"), sep = "_") %>%
+                             "categoria", "tipo_categoria"), sep = "_") %>%
   mutate(tipo_categoria = str_remove_all(tipo_categoria, "\\.csv"))
-  
+
 # definir cabeçalho 
 cabecalho_1 <- colnames(arquivo_tidy[1:5])
 cabecalho_2 <- arquivo_tidy[1,6:length(colnames(arquivo_tidy))]
@@ -60,7 +60,8 @@ ordem_candidatos <- arquivo_tidy_2 %>%
 
 # juntar ORDEM + DADOS
 arquivo_final <- arquivo_tidy_2 %>%
-  bind_rows(ordem_candidatos)
+  rbind(ordem_candidatos) %>%
+  select(cabecalho_1, paste(colnames(ordem_candidatos)))
 
 # criar pasta e baixar o arquivo completo
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
