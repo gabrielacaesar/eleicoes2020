@@ -1,11 +1,11 @@
-instalar pacote (se necess·rio)
+instalar pacote (se necess√°rio)
 # install.packages("tidyverse")
 
 # ler pacote
 library(tidyverse)
 
 # definir pasta
-# ATEN«√O 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
+# ATEN√á√ÉO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
 path <- "C:/Users/acaesar/Downloads/pesquisa_13out2020/"
 data_para_ordem <- "2020-10-10"
 
@@ -25,7 +25,7 @@ arquivo_tidy <- arquivo_bruto %>%
                    "categoria", "tipo_categoria"), sep = "_") %>%
   mutate(tipo_categoria = str_remove_all(tipo_categoria, "\\.csv"))
   
-# definir cabeÁalho 
+# definir cabe√ßalho 
 cabecalho_1 <- colnames(arquivo_tidy[1:5])
 cabecalho_2 <- arquivo_tidy[1,6:length(colnames(arquivo_tidy))]
 
@@ -55,7 +55,6 @@ ordem_candidatos <- arquivo_tidy_2 %>%
          instituto = "ORDEM",
          tipo_arquivo = "ORDEM",
          Data = data_para_ordem)
-
 
 # juntar ORDEM + DADOS
 arquivo_tidy_3 <- arquivo_tidy_2 %>%
