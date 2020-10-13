@@ -1,4 +1,4 @@
-instalar pacote (se necessário)
+# instalar pacote (se necessário)
 # install.packages("tidyverse")
 
 # ler pacote
