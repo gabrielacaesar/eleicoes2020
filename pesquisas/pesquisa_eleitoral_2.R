@@ -57,7 +57,7 @@ ordem_candidatos <- arquivo_tidy_2 %>%
          Data = data_para_ordem)
 
 # juntar ORDEM + DADOS
-arquivo_tidy_3 <- arquivo_tidy_2 %>%
+arquivo_final <- arquivo_tidy_2 %>%
   bind_rows(ordem_candidatos)
 
 # criar pasta e baixar o arquivo completo
