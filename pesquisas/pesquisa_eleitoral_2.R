@@ -6,7 +6,7 @@ library(tidyverse)
 
 # definir pasta
 # ATENÇÃO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
-# ATENÇÃO: apenas um estado por vez
+# ATENÇÃO: apenas uma capital por vez
 path <- "C:/Users/acaesar/Downloads/pesquisa_13out2020/"
 data_para_ordem <- "2020-10-10"
 
