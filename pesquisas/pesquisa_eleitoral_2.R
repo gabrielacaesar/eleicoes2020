@@ -21,7 +21,7 @@ arquivo_bruto <- list.files(path) %>%
 
 # separar em colunas
 arquivo_tidy <- arquivo_bruto %>%
-  separate(arquivo, int = c('tipo_arquivo', "instituto", "cidade", 
+  separate(arquivo, into = c("tipo_arquivo", "instituto", "cidade", 
                    "categoria", "tipo_categoria"), sep = "_") %>%
   mutate(tipo_categoria = str_remove_all(tipo_categoria, "\\.csv"))
   
