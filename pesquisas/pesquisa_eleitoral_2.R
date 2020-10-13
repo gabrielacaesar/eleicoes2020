@@ -50,7 +50,7 @@ ordem_candidatos <- arquivo_tidy_2 %>%
   select(name, ordem) %>%
   pivot_wider(names_from = "name", values_from = "ordem") %>%
   mutate(categoria = "ORDEM",
-         tipo_categoria = 'ORDEM', 
+         tipo_categoria = "ORDEM", 
          cidade = "ORDEM",
          instituto = "ORDEM",
          tipo_arquivo = "ORDEM",
