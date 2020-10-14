@@ -74,10 +74,11 @@ baixar_arquivos <- function(i){
     .[i] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
-    write.csv(., paste0(arquivo_final$categoria[1],
+    write.csv(., paste0(arquivo_final$categoria[i],
                         "_",
                         unique(arquivo_final$tipo_categoria)[i], 
                         ".csv"))
 }
 
 map_dfr(1:length(unique(arquivo_final$tipo_categoria)), baixar_arquivos)
+
