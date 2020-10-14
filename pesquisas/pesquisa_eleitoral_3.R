@@ -1,13 +1,13 @@
-# instalar pacote (se necess·rio)
+# instalar pacote (se necess√°rio)
 # install.packages("tidyverse")
 
 # ler pacote
 library(tidyverse)
 
 # definir pasta
-# ATEN«√O 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
-# ATEN«√O: mexer apenas em 'path' e 'data_para_ordem' nas linhas 11 e 12
-# ATEN«√O: apenas uma capital por vez
+# ATEN√á√ÉO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
+# ATEN√á√ÉO: mexer apenas em 'path' e 'data_para_ordem' nas linhas 11 e 12
+# ATEN√á√ÉO: apenas uma capital por vez
 path <- "C:/Users/acaesar/Downloads/pesquisa_13out2020_RJ/"
 data_para_ordem <- "2020-10-02"
 
@@ -27,7 +27,7 @@ arquivo_tidy <- arquivo_bruto %>%
                              "categoria", "tipo_categoria"), sep = "_") %>%
   mutate(tipo_categoria = str_remove_all(tipo_categoria, "\\.csv"))
 
-# definir cabeÁalho 
+# definir cabe√ßalho 
 cabecalho_1 <- colnames(arquivo_tidy[1:5])
 cabecalho_2 <- arquivo_tidy[1,6:length(colnames(arquivo_tidy))]
 
@@ -72,8 +72,9 @@ baixar_arquivos <- function(i){
     arquivo_final %>%
     split(arquivo_final$categoria) %>%
     .[i] %>%
+    as.data.frame(stringsAsFactors = FALSE) %>%
+    `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0(unique(arquivo_final$categoria)[i], ".csv"))
 }
 
 map_dfr(1:length(unique(arquivo_final$categoria)), baixar_arquivos)
-
