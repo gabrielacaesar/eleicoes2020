@@ -63,18 +63,21 @@ arquivo_final <- arquivo_tidy_2 %>%
   rbind(ordem_candidatos) %>%
   select(cabecalho_1, paste(colnames(ordem_candidatos)))
 
-# criar pasta e defini-la como ambiente de trabalho
+# criar pasta e baixar o arquivo completo
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
 # separar e baixar arquivos por categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
-    split(arquivo_final$categoria) %>%
+    split(arquivo_final$tipo_categoria) %>%
     .[i] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
-    write.csv(., paste0(unique(arquivo_final$categoria)[i], ".csv"))
+    write.csv(., paste0(arquivo_final$categoria[1],
+                        "_",
+                        unique(arquivo_final$tipo_categoria)[i], 
+                        ".csv"))
 }
 
-map_dfr(1:length(unique(arquivo_final$categoria)), baixar_arquivos)
+map_dfr(1:length(unique(arquivo_final$tipo_categoria)), baixar_arquivos)
