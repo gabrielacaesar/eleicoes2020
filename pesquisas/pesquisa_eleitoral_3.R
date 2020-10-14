@@ -67,7 +67,7 @@ arquivo_final <- arquivo_tidy_2 %>%
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
-# separar e baixar arquivos por categoria
+# separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
     split(arquivo_final$tipo_categoria) %>%
