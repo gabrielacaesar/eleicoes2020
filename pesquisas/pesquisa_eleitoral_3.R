@@ -63,7 +63,7 @@ arquivo_final <- arquivo_tidy_2 %>%
   rbind(ordem_candidatos) %>%
   select(cabecalho_1, paste(colnames(ordem_candidatos)))
 
-# criar pasta e baixar o arquivo completo
+# criar pasta e defini-la como ambiente de trabalho
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
