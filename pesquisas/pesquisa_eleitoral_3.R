@@ -67,16 +67,16 @@ arquivo_final <- arquivo_tidy_2 %>%
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
-# separar e baixar arquivos por tipo_categoria
+# separar e baixar arquivos por categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
     split(arquivo_final$tipo_categoria) %>%
     .[i] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
-    write.csv(., paste0(arquivo_final$categoria[i],
+    write.csv(., paste0(.$categoria[1],
                         "_",
-                        unique(arquivo_final$tipo_categoria)[i], 
+                        .$tipo_categoria[1],
                         ".csv"))
 }
 
