@@ -92,7 +92,7 @@ recursos_proprios <- receitas_candidatos %>%
   mutate(variacao = round((recursos_proprios / total_patrimonio) * 100),
          diferenca = total_patrimonio - recursos_proprios) %>%
   filter(diferenca < 0) %>%
-  arrange(desc(diferenca)) %>%
+  arrange(diferenca) %>%
   ungroup() %>%
   select(DS_CARGO, NM_EMAIL, NM_CANDIDATO, NM_URNA_CANDIDATO, SG_PARTIDO, SG_UF, NM_UE,
          recursos_proprios, total_patrimonio, variacao, diferenca, SQ_CANDIDATO, 
