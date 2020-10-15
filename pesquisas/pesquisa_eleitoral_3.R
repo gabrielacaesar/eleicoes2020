@@ -8,8 +8,8 @@ library(tidyverse)
 # ATENÇÃO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
 # ATENÇÃO: mexer apenas em 'path' e 'data_para_ordem' nas linhas 11 e 12
 # ATENÇÃO: apenas uma capital por vez
-path <- "C:/Users/acaesar/Downloads/pesquisa_15out2020/Recife/"
-data_para_ordem <- "2020-10-02"
+path <- "C:/Users/acaesar/Downloads/RJ/"
+data_para_ordem <- "2020-10-15"
 
 setwd(path)
 
@@ -42,7 +42,9 @@ ordem_candidatos <- arquivo_tidy_2 %>%
   filter(tipo_categoria == "TOTAL") %>%
   filter(Data == data_para_ordem) %>%
   pivot_longer(cols = everything()) %>%
-  mutate(percentual = case_when(str_detect(value, "^[0-9]*$") ~ as.integer(value))) %>%
+  replace(is.na(.), as.character(0)) %>%
+  mutate(percentual = case_when(str_detect(as.numeric(value), 
+         "^[0-9]*$") ~ as.integer(value))) %>%
   filter(percentual != "NA") %>%
   mutate(nao_candidato = case_when(str_detect(name, "/") ~ -1)) %>%
   mutate(nao_candidato = replace_na(nao_candidato, 0)) %>%
@@ -73,7 +75,7 @@ setwd(paste0(path, "resultado_R_", Sys.Date()))
 
 # separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
-    arquivo_final[i,] %>%
+  arquivo_final[i,] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0("G1_",
