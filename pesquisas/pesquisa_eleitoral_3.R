@@ -73,7 +73,14 @@ baixar_arquivos <- function(i){
     pluck(i) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
-    write.csv(., paste0(.$categoria[1],
+    write.csv(., paste0("G1_",
+                        .$tipo_arquivo,
+                        "_",
+                        .$instituto[1],
+                        "_",
+                        .$cidade[1],
+                        "_",
+                        .$categoria[1],
                         "_",
                         .$tipo_categoria[1],
                         ".csv"))
