@@ -59,9 +59,12 @@ ordem_candidatos <- arquivo_tidy_2 %>%
          Data = data_para_ordem)
 
 # juntar ORDEM + DADOS
+max_column <- length(colnames(cabecalho_2)) - 1
+
 arquivo_final <- arquivo_tidy_2 %>%
   rbind(ordem_candidatos) %>%
-  select(cabecalho_1, paste(colnames(ordem_candidatos)))
+  select(cabecalho_1, 
+         paste(colnames(ordem_candidatos[1:max_column])))
 
 # criar pasta e baixar o arquivo completo
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
