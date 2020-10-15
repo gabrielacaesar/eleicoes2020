@@ -67,7 +67,7 @@ arquivo_final <- arquivo_tidy_2 %>%
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
-# separar e baixar arquivos por tipo_categoria
+# separar e baixar arquivos por categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
     pluck(i) %>%
@@ -86,4 +86,4 @@ baixar_arquivos <- function(i){
                         ".csv"))
 }
 
-map_dfr(1:length(unique(arquivo_final$tipo_categoria)), baixar_arquivos)
+map_dfr(1:nrow(arquivo_final), baixar_arquivos)
