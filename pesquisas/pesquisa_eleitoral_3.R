@@ -8,13 +8,13 @@ library(tidyverse)
 # ATENÇÃO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
 # ATENÇÃO: mexer apenas em 'path' e 'data_para_ordem' nas linhas 11 e 12
 # ATENÇÃO: apenas uma capital por vez
-path <- "C:/Users/acaesar/Downloads/pesquisa_13out2020_RJ/"
+path <- "C:/Users/acaesar/Downloads/pesquisa_15out2020/Recife/"
 data_para_ordem <- "2020-10-02"
 
 setwd(path)
 
 # ler todos os arquivos
-arquivo_bruto <- list.files(path) %>%
+arquivo_bruto <- list.files(path, pattern = "*csv") %>%
   set_names() %>%
   map_df(read_delim, 
          delim = ",", 
@@ -70,8 +70,7 @@ setwd(paste0(path, "resultado_R_", Sys.Date()))
 # separar e baixar arquivos por categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
-    split(arquivo_final$tipo_categoria) %>%
-    .[i] %>%
+    pluck(i) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0(.$categoria[1],
@@ -81,4 +80,3 @@ baixar_arquivos <- function(i){
 }
 
 map_dfr(1:length(unique(arquivo_final$tipo_categoria)), baixar_arquivos)
-
