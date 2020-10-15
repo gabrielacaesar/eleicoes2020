@@ -87,7 +87,8 @@ baixar_arquivos <- function(i){
                         .$categoria[1],
                         "_",
                         .$tipo_categoria[1],
-                        ".csv"))
+                        ".csv"),
+                        fileEncoding = "UTF-8")
 }
 
 map_dfr(1:nrow(arquivo_final), baixar_arquivos)
