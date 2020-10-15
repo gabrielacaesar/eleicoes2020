@@ -35,7 +35,7 @@ colnames(arquivo_tidy) <- c(cabecalho_1, cabecalho_2)
 
 # tirar linhas excedentes
 arquivo_tidy_2 <- arquivo_tidy %>%
-  filter(Data != 'Data') 
+  filter(Data != "Data") 
 
 # ordenar considerando total
 ordem_candidatos <- arquivo_tidy_2 %>%
@@ -73,7 +73,7 @@ setwd(paste0(path, "resultado_R_", Sys.Date()))
 
 # separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
-  arquivo_final[i,] %>%
+    arquivo_final[i,] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0("G1_",
