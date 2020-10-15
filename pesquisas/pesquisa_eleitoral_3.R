@@ -71,10 +71,9 @@ arquivo_final <- arquivo_tidy_2 %>%
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
-# separar e baixar arquivos por categoria
+# separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
-    arquivo_final %>%
-    pluck(i) %>%
+  arquivo_final[i,] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0("G1_",
@@ -88,7 +87,7 @@ baixar_arquivos <- function(i){
                         "_",
                         .$tipo_categoria[1],
                         ".csv"),
-                        fileEncoding = "UTF-8")
+              fileEncoding = "UTF-8")
 }
 
 map_dfr(1:nrow(arquivo_final), baixar_arquivos)
