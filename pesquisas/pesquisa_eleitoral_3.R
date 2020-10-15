@@ -64,6 +64,7 @@ max_column <- length(colnames(cabecalho_2)) - 1
 arquivo_final <- arquivo_tidy_2 %>%
   rbind(ordem_candidatos) %>%
   select(cabecalho_1, 
+         "Data",
          paste(colnames(ordem_candidatos[1:max_column])))
 
 # criar pasta e baixar o arquivo completo
