@@ -1,10 +1,10 @@
-# instalar pacote (se necessário)
+# 1) instalar pacote (se necessário)
 # install.packages("tidyverse")
 
-# ler pacote
+# 2) ler pacote
 library(tidyverse)
 
-# definir pasta
+# 3) definir pasta
 # ATENÇÃO 'path' e 'data_para_ordem' PRECISAM SER ALTERADOS
 # ATENÇÃO: mexer apenas em 'path' e 'data_para_ordem' nas linhas 11 e 12
 # ATENÇÃO: apenas uma capital por vez
@@ -13,7 +13,7 @@ data_para_ordem <- "2020-10-15"
 
 setwd(path)
 
-# ler todos os arquivos
+# 4) ler todos os arquivos
 arquivo_bruto <- list.files(path, pattern = "*csv") %>%
   set_names() %>%
   map_df(read_delim, 
@@ -21,23 +21,23 @@ arquivo_bruto <- list.files(path, pattern = "*csv") %>%
          col_names = FALSE,
          .id = "arquivo")
 
-# separar em colunas
+# 5) separar em colunas
 arquivo_tidy <- arquivo_bruto %>%
   separate(arquivo, into = c("tipo_arquivo", "instituto", "cidade", 
                              "categoria", "tipo_categoria"), sep = "_") %>%
   mutate(tipo_categoria = str_remove_all(tipo_categoria, "\\.csv"))
 
-# definir cabeçalho 
+# 6) definir cabeçalho 
 cabecalho_1 <- colnames(arquivo_tidy[1:5])
 cabecalho_2 <- arquivo_tidy[1,6:length(colnames(arquivo_tidy))]
 
 colnames(arquivo_tidy) <- c(cabecalho_1, cabecalho_2)
 
-# tirar linhas excedentes
+# 7) tirar linhas excedentes
 arquivo_tidy_2 <- arquivo_tidy %>%
   filter(Data != "Data") 
 
-# ordenar considerando total
+# 8) ordenar considerando total
 ordem_candidatos <- arquivo_tidy_2 %>%
   filter(tipo_categoria == "TOTAL") %>%
   filter(Data == data_para_ordem) %>%
@@ -60,7 +60,7 @@ ordem_candidatos <- arquivo_tidy_2 %>%
          tipo_categoria = "ORDEM", 
          Data = data_para_ordem)
 
-# juntar ORDEM + DADOS
+# 9) juntar ORDEM + DADOS
 max_column <- length(colnames(cabecalho_2)) - 1
 
 arquivo_final <- arquivo_tidy_2 %>%
@@ -69,11 +69,11 @@ arquivo_final <- arquivo_tidy_2 %>%
          "Data",
          paste(colnames(ordem_candidatos[1:max_column])))
 
-# criar pasta e baixar o arquivo completo
+# 10) criar pasta e baixar o arquivo completo
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
-# separar e baixar arquivos por tipo_categoria
+# 11) separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
     arquivo_final %>%
     split(arquivo_final$tipo_categoria) %>%
