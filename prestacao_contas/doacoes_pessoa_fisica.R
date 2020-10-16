@@ -120,3 +120,4 @@ t <- receitas_candidatos %>%
          "perc_receita", "perc_doacao_total", "perc_limite", "faixa_doacao", "VR_DESPESA_MAX_CAMPANHA") %>%
   arrange(desc(int))
   
+# e doacoes de PF para partidos que repassam para candidatos?
