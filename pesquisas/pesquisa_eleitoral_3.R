@@ -75,7 +75,9 @@ setwd(paste0(path, "resultado_R_", Sys.Date()))
 
 # separar e baixar arquivos por tipo_categoria
 baixar_arquivos <- function(i){
-  arquivo_final[i,] %>%
+    arquivo_final %>%
+    split(arquivo_final$tipo_categoria) %>%
+    .[i] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
     write.csv(., paste0("G1_",
@@ -92,4 +94,5 @@ baixar_arquivos <- function(i){
               fileEncoding = "UTF-8")
 }
 
-map_dfr(1:nrow(arquivo_final), baixar_arquivos)
+map_dfr(1:length(unique(arquivo_final$tipo_categoria)), baixar_arquivos)
+
