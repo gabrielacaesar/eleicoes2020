@@ -1,3 +1,4 @@
+# check: https://discourse.curso-r.com/t/download-de-todos-os-arquivos-do-google-cloud-platform/642/2
 # 1) instalar pacote (se necessário)
 # install.packages("tidyverse")
 
