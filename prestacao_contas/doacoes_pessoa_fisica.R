@@ -1,4 +1,4 @@
-# reading libraries
+# leitura de pacotes
 library(tidyverse)
 library(data.table)
 
@@ -44,23 +44,33 @@ class_columns_2 <- c(SQ_PRESTADOR_CONTAS = "character",
                      SQ_RECEITA = "character")
 
 # importing CSV - candidatos
-cand_2020_BR <- fread("~/Downloads/dados_16out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
+cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_19out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
                       encoding = "Latin-1",
                       drop = drop_columns,
                       colClasses = class_columns)
 
 # importing CSV - prestação de contas / CANDIDATOS - RECEITA
-receitas_candidatos <- fread("~/Downloads/dados_16out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
+receitas_candidatos <- fread("C:/Users/acaesar/Downloads/dados_19out2020/prestacao_de_contas_eleitorais_candidatos_2020/receitas_candidatos_2020_BRASIL.csv",
                              encoding = "Latin-1",
                              select = select_columns,
                              colClasses = class_columns_2)
 
 
 # importing CSV - prestação de contas / ÓRGÃO PARTIDÁRIO - RECEITA
-receitas_partidos <- fread("~/Downloads/dados_16out2020/prestacao_de_contas_eleitorais_orgaos_partidarios_2020/receitas_orgaos_partidarios_2020_BRASIL.csv",
+receitas_partidos <- fread("C:/Users/acaesar/Downloads/dados_19out2020/prestacao_de_contas_eleitorais_orgaos_partidarios_2020/receitas_orgaos_partidarios_2020_BRASIL.csv",
                            encoding = "Latin-1",
-                           select = select_columns,
                            colClasses = class_columns_2)
+
+########################
+# RECEITA - CANDIDATOS #
+########################
+
+# soma doações por tipo receita / CANDIDATOS
+cand_tipo_receita <- receitas_candidatos %>%
+  mutate(VR_RECEITA= readr::parse_number(VR_RECEITA, 
+                                         locale = readr::locale(decimal_mark = ","))) %>%
+  group_by(DS_ORIGEM_RECEITA) %>%
+  summarise(soma = sum(VR_RECEITA))
 
 # quantidade de doacoes para candidatos diferentes / PF
 receitas_candidatos_n <- receitas_candidatos %>%
@@ -102,12 +112,13 @@ t <- receitas_candidatos %>%
   group_by(SQ_CANDIDATO, NR_CPF_CNPJ_DOADOR) %>%
   summarise(int = sum(VR_RECEITA)) %>%
   arrange(desc(int)) %>% 
+  ungroup() %>%
   left_join(receitas_candidatos_n, by = "NR_CPF_CNPJ_DOADOR") %>%
   left_join(receitas_candidatos_total, by = "NR_CPF_CNPJ_DOADOR") %>%
   mutate(perc_doacao_total = round((int / soma) * 100)) %>%
   left_join(cand_2020_BR_n, by = "SQ_CANDIDATO") %>%
   left_join(receitas_total, by = "SQ_CANDIDATO") %>%
-  mutate(perc_receita = round((int / receita_total)) * 100) %>%
+  mutate(perc_receita = round((int / receita_total) * 100)) %>%
   mutate(perc_limite = round((int / VR_DESPESA_MAX_CAMPANHA) * 100)) %>%
   mutate(faixa_doacao = case_when(int > 100000 ~ "acima_de_100_mil",
                                   int > 50000 & int <= 100000 ~ "de_50_a_100_mil",
@@ -118,6 +129,88 @@ t <- receitas_candidatos %>%
   select("SQ_CANDIDATO", "NR_CPF_CNPJ_DOADOR", "NM_DOADOR_RFB", "NM_CANDIDATO", "NM_URNA_CANDIDATO", 
          "SG_PARTIDO", "SG_UF", "NM_UE", "DS_CARGO", "int", "contagem", "soma", "receita_total",
          "perc_receita", "perc_doacao_total", "perc_limite", "faixa_doacao", "VR_DESPESA_MAX_CAMPANHA") %>%
-  arrange(desc(int))
+  arrange(desc(soma))
+
+sum(t$int)
+
+######################
+# RECEITA - PARTIDOS #
+######################
+
+receitas_partidos_n <- receitas_partidos %>%
+  mutate(VR_RECEITA= readr::parse_number(VR_RECEITA, 
+                                         locale = readr::locale(decimal_mark = ","))) %>%
+  filter(DS_ORIGEM_RECEITA == "Recursos de pessoas físicas") %>%
+  group_by(NR_CPF_CNPJ_DOADOR) %>%
+  summarise(int = sum(VR_RECEITA)) %>%
+  mutate(faixa_doacao = case_when(int > 100000 ~ "acima_de_100_mil",
+                                  int > 50000 & int <= 100000 ~ "de_50_a_100_mil",
+                                  int > 25000 & int <= 50000 ~ "de_25_a_50_mil",
+                                  int > 10000 & int <= 25000 ~ "de_10_a_25_mil",
+                                  int > 5000 & int <= 10000 ~ "de_5_a_10_mil",
+                                  int > 0 & int <= 5000 ~ "de_0_a_5_mil")) 
+
+
+sum(receitas_partidos_n$int)
+
+# soma doações por tipo receita / ORGÃOS PARTIDÁRIOS
+partidos_tipo_receita <- receitas_partidos %>%
+  mutate(VR_RECEITA= readr::parse_number(VR_RECEITA, 
+                                         locale = readr::locale(decimal_mark = ","))) %>%
+  group_by(DS_ORIGEM_RECEITA) %>%
+  summarise(soma = sum(VR_RECEITA))
+
+###################
+# RECEITA - FINAL #
+###################
+
+cand_dispersao_doacoes <- receitas_candidatos %>%
+  mutate(VR_RECEITA= readr::parse_number(VR_RECEITA, 
+                                         locale = readr::locale(decimal_mark = ","))) %>%
+  filter(DS_ORIGEM_RECEITA == "Recursos de pessoas físicas") %>%
+  group_by(NR_CPF_CNPJ_DOADOR) %>%
+  summarise(soma = sum(VR_RECEITA)) %>%
+  arrange(desc(soma)) %>%
+  mutate(faixa_doacao = case_when(soma > 100000 ~ "acima_de_100_mil",
+                                  soma > 50000 & soma <= 100000 ~ "de_50_a_100_mil",
+                                  soma > 25000 & soma <= 50000 ~ "de_25_a_50_mil",
+                                  soma > 10000 & soma <= 25000 ~ "de_10_a_25_mil",
+                                  soma > 5000 & soma <= 10000 ~ "de_5_a_10_mil",
+                                  soma > 0 & soma <= 5000 ~ "de_0_a_5_mil")) %>%
+  group_by(faixa_doacao) %>%
+  summarise(contagem = n()) %>%
+  mutate(perc_contagem = round(contagem / sum(contagem), 2) * 100)
+
+partido_dispersao_doacoes <- receitas_partidos %>%
+  mutate(VR_RECEITA= readr::parse_number(VR_RECEITA, 
+                                         locale = readr::locale(decimal_mark = ","))) %>%
+  filter(DS_ORIGEM_RECEITA == "Recursos de pessoas físicas") %>%
+  group_by(NR_CPF_CNPJ_DOADOR) %>%
+  summarise(soma = sum(VR_RECEITA)) %>%
+  arrange(desc(soma)) %>%
+  mutate(faixa_doacao = case_when(soma > 100000 ~ "acima_de_100_mil",
+                                  soma > 50000 & soma <= 100000 ~ "de_50_a_100_mil",
+                                  soma > 25000 & soma <= 50000 ~ "de_25_a_50_mil",
+                                  soma > 10000 & soma <= 25000 ~ "de_10_a_25_mil",
+                                  soma > 5000 & soma <= 10000 ~ "de_5_a_10_mil",
+                                  soma > 0 & soma <= 5000 ~ "de_0_a_5_mil")) %>%
+  group_by(faixa_doacao) %>%
+  summarise(contagem = n()) %>%
+  mutate(perc_contagem = round(contagem / sum(contagem), 2) * 100)
+
+#### número de CPFs que fizeram doações
+PF_receita_partido <- receitas_partidos_n %>%
+  select(NR_CPF_CNPJ_DOADOR) %>%
+  distinct(NR_CPF_CNPJ_DOADOR, .keep_all = TRUE) %>%
+  arrange(desc(NR_CPF_CNPJ_DOADOR)) %>%
+  mutate(coluna = "receitas_partidos")
+
+PF_receita <- t %>%
+  select(NR_CPF_CNPJ_DOADOR) %>%
+  distinct(NR_CPF_CNPJ_DOADOR, .keep_all = TRUE) %>%
+  arrange(desc(NR_CPF_CNPJ_DOADOR)) %>%
+  mutate(coluna = "receitas_candidatos") %>%
+  left_join(PF_receita_partido, by = "NR_CPF_CNPJ_DOADOR") %>%
+  filter(!is.na(`coluna.y`))
   
-# e doacoes de PF para partidos que repassam para candidatos?
+
