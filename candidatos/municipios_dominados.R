@@ -189,6 +189,7 @@ cand_2000_2016 <- eleitorado_2020 %>%
          SG_PARTIDO_2008, SG_PARTIDO_2012, SG_PARTIDO_2016) %>%
   mutate(SG_PARTIDO_2000 = str_replace_all(SG_PARTIDO_2000, "PFL", "DEM")) %>%
   mutate(SG_PARTIDO_2004 = str_replace_all(SG_PARTIDO_2004, "PFL", "DEM")) %>%
+  mutate(SG_PARTIDO_2000 = str_replace_all(SG_PARTIDO_2000, "PRN", "PTC")) %>%
   mutate(SG_PARTIDO_2000 = str_replace_all(SG_PARTIDO_2000, "PPB", "PP")) %>%
   mutate(SG_PARTIDO_2000 = str_replace_all(SG_PARTIDO_2000, "PL", "PR")) %>%
   mutate(SG_PARTIDO_2004 = str_replace_all(SG_PARTIDO_2004, "PL", "PR")) %>%
