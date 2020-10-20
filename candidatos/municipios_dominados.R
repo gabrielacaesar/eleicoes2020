@@ -175,7 +175,7 @@ colnames(cand_2016_n) <- paste(colnames(cand_2016_n), "2016", sep = "_")
 
 ##### 
 
-cand_2000_2012 <- eleitorado_2020 %>%
+cand_2000_2016 <- eleitorado_2020 %>%
   group_by(SG_UF, CD_MUNICIPIO, NM_MUNICIPIO) %>%
   summarise(total = sum(QT_ELEITORES_PERFIL)) %>%
   rename("SG_UE" = "CD_MUNICIPIO") %>%
@@ -197,3 +197,5 @@ cand_2000_2012 <- eleitorado_2020 %>%
          & SG_PARTIDO_2008 == SG_PARTIDO_2012
          & SG_PARTIDO_2012 == SG_PARTIDO_2016) 
   # filter(check_partido == TRUE)
+
+write.csv(cand_2000_2016, "cand_2000_2016.csv")
