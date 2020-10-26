@@ -43,13 +43,13 @@ write_rds(cand_2020_n, "cand_2020_n.rds")
 
 ## auxilio emergencial / agosto de 2020
 aux <- fread("C:/Users/acaesar/Downloads/beneficios_cidadao/auxilio_emergencial/202008_AuxilioEmergencial/202008_AuxilioEmergencial.csv",
-             encoding = "Latin-1")
+             encoding = "Latin-1",
+             select = c("UF", "NOME MUNICÍPIO", "NIS BENEFICIÁRIO", "CPF BENEFICIÁRIO", "NOME BENEFICIÁRIO", "PARCELA", "VALOR BENEFÍCIO"))
 
 write_rds(aux, "aux.rds")
 
 aux_n <- aux %>%
   janitor::clean_names() %>%
-  select(uf, nome_municipio, nis_beneficiario, cpf_beneficiario, nome_beneficiario, parcela, valor_beneficio) %>%
   mutate(cpf_beneficiario = str_remove_all(cpf_beneficiario, "\\*")) %>%
   mutate(cpf_beneficiario = str_remove_all(cpf_beneficiario, "\\.")) %>%
   mutate(cpf_beneficiario = str_remove_all(cpf_beneficiario, "\\-")) %>%
