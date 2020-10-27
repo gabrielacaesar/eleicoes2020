@@ -1,3 +1,8 @@
+#HIROTA::
+#A base inclui condenados ou nao? ou soh tramitando?
+#Por que NA? o que faz? eu entro e olho? segredo de justiça?
+#Checar caso de estupro de vulneravel ou outro crime mais grave, como homicídio e formação de quadrilha
+
 # leitura de pacotes
 library(tidyverse)
 
@@ -13,7 +18,7 @@ cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_27out2020/consulta_cand_202
                    select = c("SG_UF", "SG_UE", "NM_UE", "DS_CARGO", "SQ_CANDIDATO",
                               "NM_CANDIDATO", "NR_CPF_CANDIDATO", "SG_PARTIDO"))
 
-# an�lise / PREFEITO
+# análise / PREFEITO
 abj_prefeito_n <- abj_prefeito %>%
   left_join(cand_2020, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   group_by(NM_CANDIDATO, SG_PARTIDO, NM_UE) %>%
@@ -26,7 +31,7 @@ abj_prefeito_c <- abj_prefeito %>%
   summarise(int = n()) %>%
   arrange(desc(int))
 
-# an�lise / VICE-PREFEITO
+# análise / VICE-PREFEITO
 abj_vice_prefeito_n <- abj_vice_prefeito %>%
   left_join(cand_2020, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   group_by(NM_CANDIDATO, SG_PARTIDO, NM_UE) %>%
@@ -39,7 +44,7 @@ abj_vice_prefeito_c <- abj_vice_prefeito %>%
   summarise(int = n()) %>%
   arrange(desc(int))
 
-# an�lise / VEREADOR
+# análise / VEREADOR
 abj_vereador_n <- abj_vereador %>%
   left_join(cand_2020, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   group_by(NM_CANDIDATO, SG_PARTIDO, NM_UE) %>%
