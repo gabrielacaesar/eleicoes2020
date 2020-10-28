@@ -10,11 +10,11 @@ class_columns <- c(NR_CPF_CANDIDATO = "character",
                    NR_PROCESSO = "character")
 
 # importing CSV
-cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_12out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
+cand_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_28out2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", 
                       encoding = "Latin-1",
                       colClasses = class_columns)
 
-bens_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_12out2020/bem_candidato_2020/bem_candidato_2020_BRASIL.csv",
+bens_2020_BR <- fread("C:/Users/acaesar/Downloads/dados_28out2020/bem_candidato_2020/bem_candidato_2020_BRASIL.csv",
                       encoding = "Latin-1",
                       colClasses = c(SQ_CANDIDATO = "character"))
 
@@ -63,7 +63,21 @@ quem_escolho_vereador <- cand_patrimonio %>%
            SG_UE == "31054" | # Aracaju - SE
            SG_UE == "73440") 
 
-write.csv(quem_escolho_vereador, "quem_escolho_vereador.csv")
+write.csv(quem_escolho_vereador, "quem_escolho_vereador_28out2020.csv")
+
+# leitura arquivo 12.out.2020 / vereadores de capitais
+
+velho_quem_escolho <- fread("C:/Users/acaesar/Downloads/quem_escolho/quem_escolho_vereador.csv",
+                            colClasses = c(SQ_CANDIDATO = "character"),
+                            select = c(SQ_CANDIDATO, DS_DETALHE_SITUACAO_CAND))
+
+# CAPITAIS - VEREADOR // CHECAGEM
+
+check_quem_escolho <- quem_escolho_vereador %>%
+  left_join(velho_quem_escolho, by = "SQ_CANDIDATO") %>%
+  mutate(mudou_status = `DS_DETALHE_SITUACAO_CAND.x` == `DS_DETALHE_SITUACAO_CAND.y`)
+
+write.csv(check_quem_escolho, "check_quem_escolho_28out2020.csv")
 
 # BRASIL - PREFEITO + select
 quem_escolho_PREFEITO_BR <- cand_patrimonio %>%
