@@ -86,16 +86,17 @@ baixar_arquivos <- function(i){
     .[i] %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
     `colnames<-`(paste(colnames(arquivo_final))) %>%
+    select(-c(tipo_arquivo, instituto, cidade, categoria, tipo_categoria)) %>%
     write.csv(., paste0("G1_",
-                        .$tipo_arquivo[1],
+                        splited_df[[i]][[1]][1],
                         "_",
-                        .$instituto[1],
+                        splited_df[[i]][[2]][1],
                         "_",
-                        .$cidade[1],
+                        splited_df[[i]][[3]][1],
                         "_",
-                        .$categoria[1],
+                        splited_df[[i]][[4]][1],
                         "_",
-                        .$tipo_categoria[1],
+                        splited_df[[i]][[5]][1],
                         ".csv"),
               fileEncoding = "UTF-8")
 }
