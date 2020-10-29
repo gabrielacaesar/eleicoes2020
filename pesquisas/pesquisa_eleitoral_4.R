@@ -74,7 +74,7 @@ arquivo_final <- arquivo_tidy_2 %>%
          "data",
          paste(colnames(ordem_candidatos[1:max_column])))
 
-# 10) criar pasta e baixar o arquivo completo
+# 10) criar pasta e definir como local de trabalho
 dir.create(paste0(path, "resultado_R_", Sys.Date()))
 setwd(paste0(path, "resultado_R_", Sys.Date()))
 
