@@ -1,7 +1,3 @@
-#HIROTA::
-#Ver as respostas da Renata
-#Checar caso de estupro de vulneravel ou outro crime mais grave, como homicídio e formação de quadrilha
-
 # leitura de pacotes
 library(tidyverse)
 library(data.table)
