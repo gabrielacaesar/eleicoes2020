@@ -3,9 +3,9 @@ library(tidyverse)
 library(data.table)
 
 # leitura de arquivos / ABJ
-abj_prefeito <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020/prefeitos_criminal_passivo.rds")
-abj_vice_prefeito <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020/vice_prefeitos_criminal_passivo.rds")
-abj_vereador <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020/vereadores_criminal_passivo.rds")
+abj_prefeito <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020-3/prefeitos_criminal_reus.rds")
+abj_vice_prefeito <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020-3/vice_prefeitos_criminal_reus.rds")
+abj_vereador <- read_rds("C:/Users/acaesar/Downloads/candidatos_processos_3nov2020-3/vereadores_criminal_reus.rds")
 
 # leitura de arquivos / CAND
 cand_2020_SP <- fread("C:/Users/acaesar/Downloads/dados_3nov2020/consulta_cand_2020/consulta_cand_2020_SP.csv", 
@@ -28,7 +28,10 @@ abj_prefeito_tidy <- abj_prefeito %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
-  select(-c(movimentacoes, partes, historico, audiencias, delegacia))
+  select(-c(movimentacoes, partes, historico, audiencias, delegacia,
+            local_fisico, valor_da_acao, cdp, digital, outros_numeros, cdas, 
+            apensado_ao, dados_da_precatoria, entranhado_ao, execucao_de_sentenca, 
+            processo_principal, recebido_em, nº_de_ordem_antigo))
 
 write.csv(abj_prefeito_tidy, "abj_prefeito_tidy.csv")
 
@@ -54,7 +57,9 @@ abj_vice_prefeito_tidy <- abj_vice_prefeito %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
-  select(-c(movimentacoes, partes, historico, audiencias, delegacia))
+  select(-c(movimentacoes, partes, historico, audiencias, delegacia,
+            local_fisico, valor_da_acao, cdp, digital, outros_numeros, cdas, 
+            apensado_ao, dados_da_precatoria, entranhado_ao))
 
 write.csv(abj_vice_prefeito_tidy, "abj_vice_prefeito_tidy.csv")
 
@@ -80,7 +85,11 @@ abj_vereador_tidy <- abj_vereador %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
-  select(-c(movimentacoes, partes, historico, audiencias, delegacia))
+  select(-c(movimentacoes, partes, historico, audiencias, delegacia,
+            local_fisico, valor_da_acao, cdp, digital, outros_numeros, cdas, 
+            apensado_ao, dados_da_precatoria, entranhado_ao,
+            execucao_de_sentenca, processo_principal, recebido_em, acao_incidental, 
+            unificado_ao, incidente))
 
 write.csv(abj_vereador_tidy, "abj_vereador_tidy.csv")
 
