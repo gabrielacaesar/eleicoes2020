@@ -25,6 +25,10 @@ cand_2020_SP_n <- cand_2020_SP %>%
 abj_prefeito_tidy <- abj_prefeito %>%
   filter(!str_detect(status, "Suspenso") &
            !str_detect(status, "Extinto")) %>%
+  filter(classe != "Carta Precatória Criminal" &
+         classe != "Outros Feitos não Especificados" &
+         classe != "Carta de Ordem Criminal" &
+         classe != "Execução da Pena") %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
@@ -54,6 +58,10 @@ write.csv(abj_prefeito_c, "abj_prefeito_c.csv")
 abj_vice_prefeito_tidy <- abj_vice_prefeito %>%
   filter(!str_detect(status, "Suspenso") &
            !str_detect(status, "Extinto")) %>%
+  filter(classe != "Carta Precatória Criminal" &
+           classe != "Outros Feitos não Especificados" &
+           classe != "Carta de Ordem Criminal" &
+           classe != "Execução da Pena") %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
@@ -82,6 +90,10 @@ write.csv(abj_vice_prefeito_c, "abj_vice_prefeito_c.csv")
 abj_vereador_tidy <- abj_vereador %>%
   filter(!str_detect(status, "Suspenso") &
            !str_detect(status, "Extinto")) %>%
+  filter(classe != "Carta Precatória Criminal" &
+           classe != "Outros Feitos não Especificados" &
+           classe != "Carta de Ordem Criminal" &
+           classe != "Execução da Pena") %>%
   left_join(cand_2020_SP_n, by = c("cpf_candidato" = "NR_CPF_CANDIDATO")) %>%
   filter(!is.na(NM_CANDIDATO)) %>%
   relocate(NM_CANDIDATO, NM_UE, SG_PARTIDO, DS_DETALHE_SITUACAO_CAND, NM_EMAIL) %>%
@@ -118,3 +130,10 @@ abj_vereador_c2 <- abj_vereador_tidy %>%
            str_detect(assunto, "Tráfico de Drogas e Condutas Afins"))
            
 write.csv(abj_vereador_c2, "abj_vereador_c2.csv")
+
+## all
+abj_c <- abj_vereador_c %>%
+  rbind(abj_vice_prefeito_c, abj_prefeito_c) %>%
+  group_by(assunto) %>%
+  summarise(int = sum(int)) %>%
+  arrange(desc(int))
