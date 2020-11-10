@@ -37,8 +37,7 @@ resultado_hab_2016 <- hab_2016 %>%
   unite(cd_ibge, c(cd_uf, cd_ue), sep = "") %>%
   left_join(cod_file, by = c("cd_ibge" = "codigo_ibge")) %>%
   left_join(resultado_2016_n, by = c("codigo_tse" = "CD_MUNICIPIO")) %>%
-  arrange(desc(NM_UE_n)) %>%
-  filter(is.na(NM_UE_n))
+  arrange(desc(NM_UE_n)) 
 
 #write.csv(resultado_hab_2016, "resultado_hab_2016.csv")
 
