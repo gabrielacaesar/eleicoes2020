@@ -42,10 +42,40 @@ resultado_hab_2016 <- hab_2016 %>%
 #write.csv(resultado_hab_2016, "resultado_hab_2016.csv")
 
 hab_partido_2016 <- resultado_hab_2016 %>%
-  filter(!is.na(NM_UE_n)) %>%
+  mutate(SG_PARTIDO = case_when(codigo_tse == "8931" ~ "PSD",
+                                codigo_tse != "8931" ~ SG_PARTIDO)) %>%
+  mutate(votos_totais = case_when(codigo_tse == "8931" ~ as.character("2317"),
+                                codigo_tse != "8931" ~ as.character(votos_totais))) %>%
+  filter(!is.na(SG_PARTIDO)) %>%
   group_by(SG_PARTIDO) %>%
-  summarise(votos = sum(votos_totais),
+  summarise(votos = sum(as.integer(votos_totais)),
             pop_estimada = sum(as.integer(pop_est)),
             pref_count = n())
 
 #write.csv(hab_partido_2016, "hab_partido_2016.csv")
+
+
+####
+# CHECAGEM DE 2 TURNO + OUTROS
+eleito_2turno_2016 <- resultado_2016 %>%
+  filter(DS_ELEICAO == "ELEIÇÕES MUNICIPAIS 2016") %>%
+  filter(NR_TURNO == "2") %>%
+  filter(DS_CARGO == "Prefeito") %>%
+  filter(DS_SIT_TOT_TURNO == "ELEITO") %>%
+  group_by(NM_CANDIDATO, SG_PARTIDO, NM_UE, SG_UF, CD_MUNICIPIO) %>%
+  summarise(votos_totais = sum(QT_VOTOS_NOMINAIS)) %>%
+  mutate(NM_UE_n = abjutils::rm_accent(toupper(NM_UE)))
+
+sem_dado_1turno_2016 <- resultado_hab_2016 %>%
+  filter(is.na(NM_UE_n)) %>%
+  select(`uf.x`, nm_ue, pop_est, nm_ue_n, codigo_tse, capital) %>%
+  left_join(eleito_2turno_2016, by = c("codigo_tse" = "CD_MUNICIPIO")) %>%
+  filter(is.na(NM_UE_n)) %>%
+  left_join(resultado_2016_pref, by = c("codigo_tse" = "CD_MUNICIPIO"))
+
+resultado_2016_pref <- resultado_2016 %>%
+  filter(DS_CARGO == "Prefeito") %>%
+  filter(DS_SIT_TOT_TURNO == "ELEITO") %>%
+  filter(DS_ELEICAO != "ELEIÇÕES MUNICIPAIS 2016")
+
+
