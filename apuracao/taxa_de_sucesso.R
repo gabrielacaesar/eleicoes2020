@@ -9,6 +9,8 @@ cand_2016 <- fread("C:/Users/acaesar/Downloads/candidatos/consulta_cand_2016/con
 
 cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_3nov2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", select = keep_columns)
 
+saldo_pref_UF <- fread("C:/Users/acaesar/Downloads/resultado_eleicoes/saldo-prefeitura-TOTAL.csv")
+
 # 2016 / candidatos
 
 cand_2016_n <- cand_2016 %>%
@@ -20,10 +22,31 @@ cand_2016_n <- cand_2016 %>%
          DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
          DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
-  group_by(SG_PARTIDO, SG_UF) %>%
-  summarise(int = n())
+  group_by(SG_PARTIDO) %>%
+  summarise(candidatos = n()) %>%
+  mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PEN", "Patriota"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PMDB", "MDB"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PPS", "Cidadania"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PRB", "Republicanos"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PR$", "PL"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PSDC", "DC"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PTN", "PODE"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "REDE", "Rede"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PT do B", "Avante"))
 
-write.csv(cand_2016_n, "cand_2016_n.csv")
+eleitos_2016 <- saldo_pref_UF %>%
+  janitor::clean_names() %>%
+  filter(ano == "2016") %>%
+  group_by(partido) %>%
+  summarise(eleitos = sum(prefeituras))
+
+tx_sucesso_2016 <- cand_2016_n %>%
+  left_join(eleitos_2016, by = c("SG_PARTIDO" = "partido")) %>%
+  replace(is.na(.), 0) %>%
+  mutate(tx_sucesso = round((eleitos / candidatos), 2) * 100)
+
+write.csv(tx_sucesso_2016, "tx_sucesso_2016.csv")
 
 # 2020 / candidatos
 
@@ -37,7 +60,7 @@ cand_2020_n <- cand_2020 %>%
          DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
   group_by(SG_PARTIDO, SG_UF) %>%
-  summarise(int = n())
+  summarise(candidatos = n())
   
 write.csv(cand_2020_n, "cand_2020_n.csv")
 
