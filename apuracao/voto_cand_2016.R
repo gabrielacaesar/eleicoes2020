@@ -14,7 +14,7 @@ g_95 <- fread("C:/Users/acaesar/Downloads/resultado_eleicoes/lista-cidades-G95.c
 
 # eleitos no 1 turno + eleitos no 2 turno
 eleitos_1_turno <- resultado_2016 %>%
-  filter(DS_ELEICAO == "ELEIÇÕES MUNICIPAIS 2016") %>%
+  filter(DS_ELEICAO == "ELEIÃ‡Ã•ES MUNICIPAIS 2016") %>%
   filter(NR_TURNO == "1") %>%
   filter(DS_CARGO == "Prefeito") %>%
   filter(DS_SIT_TOT_TURNO == "ELEITO") %>%
@@ -24,7 +24,7 @@ eleitos_1_turno <- resultado_2016 %>%
 
 # eleitos no 2 turno
 eleitos_2_turno <- resultado_2016 %>%
-  filter(DS_ELEICAO == "ELEIÇÕES MUNICIPAIS 2016") %>%
+  filter(DS_ELEICAO == "ELEIÃ‡Ã•ES MUNICIPAIS 2016") %>%
   filter(NR_TURNO == "2") %>%
   filter(DS_CARGO == "Prefeito") %>%
   filter(DS_SIT_TOT_TURNO == "ELEITO") %>%
@@ -32,10 +32,10 @@ eleitos_2_turno <- resultado_2016 %>%
   summarise(votos_2_turno = sum(QT_VOTOS_NOMINAIS)) 
 
 eleitos_2_turno_n <- resultado_2016 %>%
-  filter(DS_ELEICAO == "ELEIÇÕES MUNICIPAIS 2016") %>%
+  filter(DS_ELEICAO == "ELEIÃ‡Ã•ES MUNICIPAIS 2016") %>%
   filter(NR_TURNO == "1") %>%
   filter(DS_CARGO == "Prefeito") %>%
-  filter(DS_SIT_TOT_TURNO == "2º TURNO") %>%
+  filter(DS_SIT_TOT_TURNO == "2Âº TURNO") %>%
   group_by(NM_CANDIDATO, SG_PARTIDO, NM_UE, SG_UF, CD_MUNICIPIO) %>%
   summarise(votos_1_turno = sum(QT_VOTOS_NOMINAIS)) %>%
   left_join(eleitos_2_turno, by = c("CD_MUNICIPIO", "NM_CANDIDATO")) %>%
@@ -46,7 +46,7 @@ eleitos_2_turno_n <- resultado_2016 %>%
 # juntando os arquivos
 total_eleitos_1_turno <- eleitos_1_turno %>%
   rbind(eleitos_2_turno_n) %>%
-  left_join(g_95, by = c("SG_UF" = "UF", "NM_UE" = "MUNICÍPIO")) %>%
+  left_join(g_95, by = c("SG_UF" = "UF", "NM_UE" = "MUNICÃPIO")) %>%
   filter(!is.na(ELEITORADO)) %>%
   mutate(ELEITORADO = str_remove_all(ELEITORADO, "\\."),
          ELEITORADO = as.integer(ELEITORADO)) %>%
