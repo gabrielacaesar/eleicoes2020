@@ -14,10 +14,11 @@ cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_3nov2020/consulta_cand_2020
 cand_2016_n <- cand_2016 %>%
   filter(NR_TURNO == "1") %>%
   filter(DS_CARGO == "PREFEITO") %>%
-  filter(DS_ELEICAO == "Eleições Municipais 2016") %>%
+  filter(DS_ELEICAO == "EleiÃ§Ãµes Municipais 2016") %>%
   filter(DS_DETALHE_SITUACAO_CAND == "DEFERIDO" |
          DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
-         DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO") %>%
+         DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
+         DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
   group_by(SG_PARTIDO, SG_UF) %>%
   summarise(int = n())
@@ -29,7 +30,7 @@ write.csv(cand_2016_n, "cand_2016_n.csv")
 cand_2020_n <- cand_2020 %>%
   filter(NR_TURNO == "1") %>%
   filter(DS_CARGO == "PREFEITO") %>%
-  filter(DS_ELEICAO == "Eleições Municipais 2020") %>%
+  filter(DS_ELEICAO == "EleiÃ§Ãµes Municipais 2020") %>%
   filter(DS_DETALHE_SITUACAO_CAND == "DEFERIDO" |
          DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
          DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
