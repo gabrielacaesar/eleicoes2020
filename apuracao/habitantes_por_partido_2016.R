@@ -3,15 +3,18 @@ library(tidyverse)
 library(data.table)
 
 # leitura de arquivo / HABITANTES
+# considera habitantes em 2017
+# quando acontece a posse
+# em razão da criação de municípios
 setwd("C:/Users/acaesar/Downloads/populacao/")
 class_columns <- c(cd_uf = "character", cd_ue = "character", pop_est = "character")
 
-hab_2016 <- fread("habitantes_2016_municipios.csv", encoding = "Latin-1", colClasses = class_columns, stringsAsFactors = FALSE)
+hab_2017 <- fread("habitantes_2017_municipios.csv", encoding = "Latin-1", colClasses = class_columns, stringsAsFactors = FALSE)
 
 # leitura de arquivo / CONVERSOR
 # url: https://github.com/betafcc/Municipios-Brasileiros-TSE/blob/master/municipios_brasileiros_tse.csv
-cod_file <- fread("https://raw.githubusercontent.com/betafcc/Municipios-Brasileiros-TSE/master/municipios_brasileiros_tse.csv",
-                  encoding = "UTF-8", sep = ",", colClasses = c(codigo_ibge = "character"))
+
+cod_file <- fread("municipios_brasileiros_tse.csv", encoding = "UTF-8", sep = ",", colClasses = c(codigo_ibge = "character"))
 
 # leitura de arquivos / RESULTADO 
 setwd("C:/Users/acaesar/Downloads/resultado_eleicoes/")
@@ -29,9 +32,9 @@ resultado_2016_n <- resultado_2016 %>%
   summarise(votos_totais = sum(QT_VOTOS_NOMINAIS)) %>%
   mutate(NM_UE_n = abjutils::rm_accent(toupper(NM_UE)))
 
-resultado_hab_2016 <- hab_2016 %>%
+resultado_hab_2016 <- hab_2017 %>%
   filter(nm_ue != "Brasília" &
-         nm_ue != "Fernando de Noronha") %>%
+           nm_ue != "Fernando de Noronha") %>%
   mutate(nm_ue_n = abjutils::rm_accent(toupper(nm_ue)),
          cd_ue = str_pad(cd_ue, 5, pad = 0)) %>%
   unite(cd_ibge, c(cd_uf, cd_ue), sep = "") %>%
@@ -45,7 +48,7 @@ hab_partido_2016 <- resultado_hab_2016 %>%
   mutate(SG_PARTIDO = case_when(codigo_tse == "8931" ~ "PSD",
                                 codigo_tse != "8931" ~ SG_PARTIDO)) %>%
   mutate(votos_totais = case_when(codigo_tse == "8931" ~ as.character("2317"),
-                                codigo_tse != "8931" ~ as.character(votos_totais))) %>%
+                                  codigo_tse != "8931" ~ as.character(votos_totais))) %>%
   filter(!is.na(SG_PARTIDO)) %>%
   group_by(SG_PARTIDO) %>%
   summarise(votos = sum(as.integer(votos_totais)),
@@ -77,5 +80,4 @@ resultado_2016_pref <- resultado_2016 %>%
   filter(DS_CARGO == "Prefeito") %>%
   filter(DS_SIT_TOT_TURNO == "ELEITO") %>%
   filter(DS_ELEICAO != "ELEIÇÕES MUNICIPAIS 2016")
-
 
