@@ -2,6 +2,18 @@
 
 Códigos em R usados para a cobertura das eleições municipais de 2020.
 
+11/11/2020                
+Mais de 1,5 mil servidores federais se candidatam, mantêm salário e custam pelo menos R$ 46 milhões                
+Segundo o Ministério da Economia, eles não têm a opção de abrir mão da remuneração nesse tempo. Especialistas dizem que dinheiro recebido e licença do trabalho podem desequilibrar disputa em pequenas cidades.                
+Por Gabriela Caesar, G1                
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/11/mais-de-15-mil-servidores-federais-se-candidatam-mantem-salario-e-custam-pelo-menos-r-46-milhoes.ghtml                
+
+09/11/2020                
+Candidatos em SP são réus em mais de 500 processos criminais; lista de crimes inclui tortura, homicídio e violência doméstica                
+Levantamento feito pela Associação Brasileira de Jurimetria revela que 422 candidatos aos cargos de prefeito, vice-prefeito e vereador em todo o estado têm 509 processos criminais na primeira instância do Tribunal de Justiça de São Paulo. Foram verificadas ocorrências para todos os 92 mil candidatos do estado.                
+Por Gabriela Caesar, G1                
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/09/candidatos-em-sp-sao-reus-em-mais-de-500-processos-criminais-lista-de-crimes-inclui-tortura-homicidio-e-violencia-domestica.ghtml                
+
 29/10/2020                
 Mortos, eleitores com renda incompatível e desempregados aparecem como doadores de R$ 22 milhões, aponta TSE                
 Núcleo de inteligência do órgão identifica indícios de 7 mil fraudes no financiamento ou prestação de serviços nesta eleição. Informações, que ainda passarão por análise mais apurada, serão enviadas para a Justiça Eleitoral julgar as contas dos candidatos.                
