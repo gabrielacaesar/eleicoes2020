@@ -9,7 +9,7 @@ cand_2016 <- fread("C:/Users/acaesar/Downloads/candidatos/consulta_cand_2016/con
 
 cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_3nov2020/consulta_cand_2020/consulta_cand_2020_BRASIL.csv", select = keep_columns)
 
-saldo_pref_UF <- fread("C:/Users/acaesar/Downloads/resultado_eleicoes/saldo-prefeitura-TOTAL.csv")
+saldo_pref_UF <- fread("C:/Users/acaesar/Downloads/saldo-prefeitura-UF-TOTAL.csv")
 
 # 2016 / candidatos
 
@@ -18,9 +18,9 @@ cand_2016_n <- cand_2016 %>%
   filter(DS_CARGO == "PREFEITO") %>%
   filter(DS_ELEICAO == "Eleições Municipais 2016") %>%
   filter(DS_DETALHE_SITUACAO_CAND == "DEFERIDO" |
-         DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
-         DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
-         DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
+           DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
+           DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
+           DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
   group_by(SG_PARTIDO) %>%
   summarise(candidatos = n()) %>%
@@ -55,14 +55,29 @@ cand_2020_n <- cand_2020 %>%
   filter(DS_CARGO == "PREFEITO") %>%
   filter(DS_ELEICAO == "Eleições Municipais 2020") %>%
   filter(DS_DETALHE_SITUACAO_CAND == "DEFERIDO" |
-         DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
-         DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
-         DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
+           DS_DETALHE_SITUACAO_CAND == "DEFERIDO COM RECURSO" |
+           DS_DETALHE_SITUACAO_CAND == "PENDENTE DE JULGAMENTO" |
+           DS_DETALHE_SITUACAO_CAND == "AGUARDANDO JULGAMENTO") %>%
   distinct(NM_CANDIDATO, NR_CPF_CANDIDATO, .keep_all = TRUE) %>%
   group_by(SG_PARTIDO, SG_UF) %>%
-  summarise(candidatos = n())
-  
-write.csv(cand_2020_n, "cand_2020_n.csv")
+  summarise(candidatos = n()) %>%
+  mutate(ano = 2020) %>%
+  mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "AVANTE", "Avante"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "CIDADANIA", "Cidadania"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "NOVO", "Novo"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PATRIOTA", "Patriota"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "REDE", "Rede"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "REPUBLICANOS", "Republicanos"),
+         SG_PARTIDO = str_replace_all(SG_PARTIDO, "SOLIDARIEDADE", "SD"))
 
-  
-  
+tx_sucesso_2020 <- cand_2020_n %>%
+  left_join(saldo_pref_UF, by = c("ano" = "Ano",
+                                  "SG_PARTIDO" = "Partido",
+                                  "SG_UF" = "UF")) %>%
+  replace(is.na(.), 0) %>%
+  rename(eleitos = "Prefeituras") %>%
+  mutate(tx_sucesso = round((eleitos / candidatos), 2) * 100)
+
+
+write.csv(tx_sucesso_2020, "tx_sucesso_2020.csv")
