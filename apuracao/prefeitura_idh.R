@@ -15,18 +15,25 @@ idh_tidy <- idh %>%
   separate(territorialidade, c("cidade", "uf"), sep = "\\(") %>%
   mutate(cidade_n = abjutils::rm_accent(toupper(str_trim(cidade)))) %>%
   mutate(uf = str_remove_all(uf, "\\)")) %>%
+  relocate(cidade_n, after = cidade) %>%
   select("cidade_n", "cidade", "uf", "posicao_idhm", "idhm") %>%
   mutate(idhm = str_replace_all(idhm, "\\,", ".")) %>%
   mutate(faixa = case_when(idhm >= 0.8 & idhm <= 1.000 ~ "Muito alto",
                            idhm >= 0.700  & idhm <= 0.799 ~ "Alto",
                            idhm >= 0.600 & idhm <= 0.699 ~ "Médio",
                            idhm >= 0.500 & idhm <= 0.599 ~ "Baixo",
-                           idhm >= 0 & idhm <= 0.499 ~ "Muito baixo"))
-  
+                           idhm >= 0 & idhm <= 0.499 ~ "Muito baixo")) %>%
+  filter(cidade_n != "BRASILIA" &
+           cidade_n != "FERNANDO DE NORONHA" &
+           cidade_n != "MACAPA")
+
 resultado_2020_n <- resultado_2020 %>%
   filter(eleito == "TRUE") %>%
-  filter(cargo == "Prefeito") %>%
-  distinct(codigo_municipio_tse, .keep_all = TRUE)
-
-
+  distinct(codigo_municipio_ibge, .keep_all = TRUE) %>%
+  mutate(cidade_n = abjutils::rm_accent(toupper(str_trim(nome_municipio)))) %>%
+  select(nome_municipio, cidade_n, uf, cargo, nome_candidato, sigla_partido)
+  
+joined_data <- idh_tidy %>%
+  left_join(resultado_2020_n, by = c("cidade_n" = "cidade_n",
+                                     "uf" = "uf"))
 
