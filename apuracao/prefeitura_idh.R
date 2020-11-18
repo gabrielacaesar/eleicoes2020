@@ -15,7 +15,6 @@ idh_tidy <- idh %>%
   separate(territorialidade, c("cidade", "uf"), sep = "\\(") %>%
   mutate(cidade_n = abjutils::rm_accent(toupper(str_trim(cidade)))) %>%
   mutate(uf = str_remove_all(uf, "\\)")) %>%
-  relocate(cidade_n, after = cidade) %>%
   select("cidade_n", "cidade", "uf", "posicao_idhm", "idhm") %>%
   mutate(idhm = str_replace_all(idhm, "\\,", ".")) %>%
   mutate(faixa = case_when(idhm >= 0.8 & idhm <= 1.000 ~ "Muito alto",
