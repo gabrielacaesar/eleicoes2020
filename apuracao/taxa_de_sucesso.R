@@ -11,6 +11,8 @@ cand_2020 <- fread("C:/Users/acaesar/Downloads/dados_3nov2020/consulta_cand_2020
 
 saldo_pref_UF <- fread("C:/Users/acaesar/Downloads/saldo-prefeitura-UF-TOTAL.csv")
 
+
+
 # 2016 / candidatos
 
 cand_2016_n <- cand_2016 %>%
@@ -79,5 +81,12 @@ tx_sucesso_2020 <- cand_2020_n %>%
   rename(eleitos = "Prefeituras") %>%
   mutate(tx_sucesso = round((eleitos / candidatos), 2) * 100)
 
+tx_sucesso_2020_BR <- tx_sucesso_2020 %>%
+  group_by(SG_PARTIDO) %>%
+  summarise(candidatos = sum(candidatos),
+            eleitos = sum(eleitos)) %>%
+  mutate(tx_sucesso = round((eleitos / candidatos), 2) * 100) %>%
+  arrange(desc(tx_sucesso))
 
 write.csv(tx_sucesso_2020, "tx_sucesso_2020.csv")
+write.csv(tx_sucesso_2020_BR, "tx_sucesso_2020_BR.csv")
