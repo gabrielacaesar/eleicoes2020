@@ -20,9 +20,9 @@ idh_tidy <- idh %>%
   mutate(idhm = str_replace_all(idhm, "\\,", ".")) %>%
   mutate(faixa = case_when(idhm >= 0.8 & idhm <= 1.000 ~ "Muito alto",
                            idhm >= 0.700  & idhm <= 0.799 ~ "Alto",
-                           idhm > 0.600 & idhm <= 0.699 ~ "Médio",
-                           idhm > 0.500 & idhm <= 0.599 ~ "Baixo",
-                           idhm > 0 & idhm <= 0.499 ~ "Muito baixo"))
+                           idhm >= 0.600 & idhm <= 0.699 ~ "MÃ©dio",
+                           idhm >= 0.500 & idhm <= 0.599 ~ "Baixo",
+                           idhm >= 0 & idhm <= 0.499 ~ "Muito baixo"))
   
 resultado_2020_n <- resultado_2020 %>%
   filter(eleito == "TRUE") %>%
