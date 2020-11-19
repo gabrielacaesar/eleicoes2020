@@ -14,12 +14,17 @@ cand_2020_coe <- fread("C:/Users/acaesar/Downloads/resultado_candidatos-COE-19no
 partido_faixa_2020 <- cand_2020_coe %>%
   filter(eleito == "TRUE") %>%
   select(uf, nome_municipio, nome_candidato, cargo, sigla_partido, sigla_partido_vice, eleito, populacao) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
-         populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
-         populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
-         populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
-         populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
-  group_by(sigla_partido, faixa) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
+         populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
+         populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
+         populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+         populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
+  mutate(id_faixa = case_when(populacao > 500000 ~ "5",
+                           populacao >= 300001  & populacao <= 500000 ~ "4",
+                           populacao >= 50001 & populacao <= 300000 ~ "3",
+                           populacao >= 10000 & populacao <= 50000 ~ "2",
+                           populacao < 10000 ~ "1")) %>%
+  group_by(sigla_partido, faixa, id_faixa) %>%
   summarise(int = n()) %>%
   rename(SG_PARTIDO = sigla_partido) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "AVANTE", "Avante"),
@@ -82,12 +87,17 @@ partido_faixa_2016 <- resultado_hab_2016 %>%
                                   codigo_tse != "8931" ~ as.character(votos_totais))) %>%
   filter(!is.na(SG_PARTIDO)) %>%
   mutate(populacao = as.integer(pop_est)) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
-                           populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
-                           populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
-                           populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
-                           populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
-  group_by(SG_PARTIDO, faixa) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
+                           populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
+                           populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
+                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+                           populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
+  mutate(id_faixa = case_when(populacao > 500000 ~ "5",
+                              populacao >= 300001  & populacao <= 500000 ~ "4",
+                              populacao >= 50001 & populacao <= 300000 ~ "3",
+                              populacao >= 10000 & populacao <= 50000 ~ "2",
+                              populacao < 10000 ~ "1")) %>%
+  group_by(SG_PARTIDO, faixa, id_faixa) %>%
   summarise(int = n()) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PEN", "Patriota"),
@@ -201,13 +211,18 @@ partido_faixa_2012 <- hab_2013 %>%
   left_join(eleitos_1turno_2012, by = c("codigo_tse" = "SG_UE")) %>%
   filter(!is.na(SG_UF)) %>%
   mutate(populacao = as.integer(pop_est)) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
-                           populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
-                           populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
-                           populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
-                           populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
+                           populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
+                           populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
+                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+                           populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
+  mutate(id_faixa = case_when(populacao > 500000 ~ "5",
+                              populacao >= 300001  & populacao <= 500000 ~ "4",
+                              populacao >= 50001 & populacao <= 300000 ~ "3",
+                              populacao >= 10000 & populacao <= 50000 ~ "2",
+                              populacao < 10000 ~ "1")) %>%
   left_join(resultado_2012_n, by = "SQ_CANDIDATO") %>%
-  group_by(SG_PARTIDO, faixa) %>%
+  group_by(SG_PARTIDO, faixa, id_faixa) %>%
   summarise(int = n()) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PEN", "Patriota"),
@@ -230,6 +245,7 @@ partido_faixa_all <- partido_faixa_2020 %>%
   #.[[1]] %>%
   pivot_wider(names_from = ano, values_from = int) %>%
   replace(is.na(.), 0) %>%
-  select(SG_PARTIDO, faixa, "2012", "2016", "2020") 
+  select(SG_PARTIDO, faixa, id_faixa, "2012", "2016", "2020") %>%
+  arrange(SG_PARTIDO, id_faixa)
 
 write.csv(partido_faixa_all, "partido_faixa_all.csv")
