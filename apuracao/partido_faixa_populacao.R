@@ -14,11 +14,11 @@ cand_2020_coe <- fread("C:/Users/acaesar/Downloads/resultado_candidatos-COE-19no
 partido_faixa_2020 <- cand_2020_coe %>%
   filter(eleito == "TRUE") %>%
   select(uf, nome_municipio, nome_candidato, cargo, sigla_partido, sigla_partido_vice, eleito, populacao) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "mais_500mil",
-         populacao >= 150001  & populacao <= 500000 ~ "entre_150_500mil",
-         populacao >= 50001 & populacao <= 150000 ~ "entre_50_150mil",
-         populacao >= 20001 & populacao <= 50000 ~ "entre_20_50mil",
-         populacao <= 20000 ~ "ate_20mil")) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
+         populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
+         populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
+         populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
+         populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
   group_by(sigla_partido, faixa) %>%
   summarise(int = n()) %>%
   rename(SG_PARTIDO = sigla_partido) %>%
@@ -82,11 +82,11 @@ partido_faixa_2016 <- resultado_hab_2016 %>%
                                   codigo_tse != "8931" ~ as.character(votos_totais))) %>%
   filter(!is.na(SG_PARTIDO)) %>%
   mutate(populacao = as.integer(pop_est)) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "mais_500mil",
-                           populacao >= 150001  & populacao <= 500000 ~ "entre_150_500mil",
-                           populacao >= 50001 & populacao <= 150000 ~ "entre_50_150mil",
-                           populacao >= 20001 & populacao <= 50000 ~ "entre_20_50mil",
-                           populacao <= 20000 ~ "ate_20mil")) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
+                           populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
+                           populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
+                           populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
+                           populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
   group_by(SG_PARTIDO, faixa) %>%
   summarise(int = n()) %>%
   mutate(SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
@@ -201,11 +201,11 @@ partido_faixa_2012 <- hab_2013 %>%
   left_join(eleitos_1turno_2012, by = c("codigo_tse" = "SG_UE")) %>%
   filter(!is.na(SG_UF)) %>%
   mutate(populacao = as.integer(pop_est)) %>%
-  mutate(faixa = case_when(populacao > 500000 ~ "mais_500mil",
-                           populacao >= 150001  & populacao <= 500000 ~ "entre_150_500mil",
-                           populacao >= 50001 & populacao <= 150000 ~ "entre_50_150mil",
-                           populacao >= 20001 & populacao <= 50000 ~ "entre_20_50mil",
-                           populacao <= 20000 ~ "ate_20mil")) %>%
+  mutate(faixa = case_when(populacao > 500000 ~ "Mais de 500 mil habitantes",
+                           populacao >= 150001  & populacao <= 500000 ~ "De 150 mil a 500 mil habitantes",
+                           populacao >= 50001 & populacao <= 150000 ~ "De 50 mil a 150 mil habitantes",
+                           populacao >= 20001 & populacao <= 50000 ~ "De 20 mil 50 mil habitantes",
+                           populacao <= 20000 ~ "Até 20 mil habitantes")) %>%
   left_join(resultado_2012_n, by = "SQ_CANDIDATO") %>%
   group_by(SG_PARTIDO, faixa) %>%
   summarise(int = n()) %>%
