@@ -17,7 +17,7 @@ partido_faixa_2020 <- cand_2020_coe %>%
   mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
          populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
          populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
-         populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+         populacao >= 10000 & populacao <= 50000 ~ "De 10 mil a 50 mil habitantes",
          populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
   mutate(id_faixa = case_when(populacao > 500000 ~ "5",
                            populacao >= 300001  & populacao <= 500000 ~ "4",
@@ -89,7 +89,7 @@ partido_faixa_2016 <- resultado_hab_2016 %>%
   mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
                            populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
                            populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
-                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil a 50 mil habitantes",
                            populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
   mutate(id_faixa = case_when(populacao > 500000 ~ "5",
                               populacao >= 300001  & populacao <= 500000 ~ "4",
@@ -213,7 +213,7 @@ partido_faixa_2012 <- hab_2013 %>%
   mutate(faixa = case_when(populacao > 500000 ~ "Acima de 500 mil habitantes",
                            populacao >= 300001  & populacao <= 500000 ~ "De 300 mil a 500 mil habitantes",
                            populacao >= 50001 & populacao <= 300000 ~ "De 50 mil a 300 mil habitantes",
-                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil 50 mil habitantes",
+                           populacao >= 10000 & populacao <= 50000 ~ "De 10 mil a 50 mil habitantes",
                            populacao < 10000 ~ "Abaixo de 10 mil habitantes")) %>%
   mutate(id_faixa = case_when(populacao > 500000 ~ "5",
                               populacao >= 300001  & populacao <= 500000 ~ "4",
