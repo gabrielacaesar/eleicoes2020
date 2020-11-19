@@ -31,7 +31,6 @@ partido_faixa_2020 <- cand_2020_coe %>%
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "CIDADANIA", "Cidadania"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "NOVO", "Novo"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PATRIOTA", "Patriota"),
-         SG_PARTIDO = str_replace_all(SG_PARTIDO, "PODE", "Podemos"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PC do B", "PCdoB"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "REDE", "Rede"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "REPUBLICANOS", "Republicanos"),
