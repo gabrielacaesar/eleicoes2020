@@ -31,7 +31,7 @@ partido_faixa_2020 <- cand_2020_coe %>%
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "REDE", "Rede"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "REPUBLICANOS", "Republicanos"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "SOLIDARIEDADE", "SD")) %>%
-  mutate(ano = "ano_2020")
+  mutate(ano = "2020")
 
 ############
 ### 2016 ###
@@ -99,7 +99,7 @@ partido_faixa_2016 <- resultado_hab_2016 %>%
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PTN", "PODE"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "REDE", "Rede"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PT do B", "Avante")) %>%
-  mutate(ano = "ano_2016")
+  mutate(ano = "2016")
   
 ############
 ### 2012 ###
@@ -218,7 +218,7 @@ partido_faixa_2012 <- hab_2013 %>%
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PSDC", "DC"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PTN", "PODE"),
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "PT do B", "Avante")) %>%
-mutate(ano = "ano_2012")
+mutate(ano = "2012")
 
 ##########################
 ### 2012 + 2016 + 2020 ###
@@ -230,6 +230,6 @@ partido_faixa_all <- partido_faixa_2020 %>%
   #.[[1]] %>%
   pivot_wider(names_from = ano, values_from = int) %>%
   replace(is.na(.), 0) %>%
-  select(SG_PARTIDO, faixa, ano_2012, ano_2016, ano_2020) 
+  select(SG_PARTIDO, faixa, "2012", "2016", "2020") 
 
 write.csv(partido_faixa_all, "partido_faixa_all.csv")
