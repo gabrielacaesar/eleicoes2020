@@ -37,6 +37,15 @@ partido_faixa_2020 <- cand_2020_coe %>%
          SG_PARTIDO = str_replace_all(SG_PARTIDO, "SOLIDARIEDADE", "SD")) %>%
   mutate(ano = "2020")
 
+all_partido_faixa_2020 <- partido_faixa_2020 %>%
+  select(-c(id_faixa, -ano)) %>%
+  #group_by(SG_PARTIDO, faixa) %>%
+  #summarise(total = sum(int)) %>%
+  pivot_wider(names_from = faixa, values_from = int) %>%
+  replace(is.na(.), 0) 
+
+# write.csv(all_partido_faixa_2020, "all_partido_faixa_2020.csv")
+
 ############
 ### 2016 ###
 ############
