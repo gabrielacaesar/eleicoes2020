@@ -45,6 +45,21 @@ idh_tidy <- idh %>%
   rename(codigo_municipio_ibge = codmun7) %>%
   relocate(sigla, before = municipio)
 
+# qt município idh por região
+idh_region <- idh_tidy %>%
+  left_join(regioes, by = c("sigla" = "uf")) %>%
+  group_by(regiao, faixa) %>%
+  summarise(int = n()) %>%
+  pivot_wider(names_from = faixa, values_from = int) %>%
+  replace(is.na(.), 0) %>%
+  mutate(total = sum(c_across(where(is.numeric)), na.rm = T)) %>%
+  mutate(Alto_perc = round((Alto / total), 3) * 100,
+         Baixo_perc = round((Baixo / total), 3) * 100,
+         Médio_perc = round((Médio / total), 3) * 100,
+         Muito_alto_perc = round((`Muito alto` / total), 3) * 100,
+         Muito_baixo_perc = round((`Muito baixo` / total), 3) * 100) 
+
+
 resultado_2020_n <- resultado_2020 %>%
   filter(eleito == "TRUE") %>%
   distinct(codigo_municipio_ibge, .keep_all = TRUE) %>%
