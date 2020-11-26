@@ -2,6 +2,60 @@
 
 Códigos em R usados para a cobertura das eleições municipais de 2020.
 
+24/11/2020       
+Prefeitos de 3,4 mil cidades devem ter apoio da maioria da Câmara Municipal       
+Levantamento considera os partidos da coligação dos prefeitos eleitos no 1º turno destas eleições e também os partidos dos vereadores eleitos. Prefeito é o chefe do Executivo municipal e precisa de apoio no Legislativo para governar. Em 132 municípios, todos os partidos da Câmara Municipal fizeram parte da coligação do prefeito eleito.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/24/prefeitos-de-34-mil-cidades-devem-ter-apoio-da-maioria-da-camara-municipal.ghtml       
+
+23/11/2020       
+PSDB lidera em cidades populosas e MDB, nos pequenos municípios; veja saldo de prefeituras levando em conta o número de habitantes       
+Levantamento mostra que PSDB irá governar 9 cidades com mais de 300 mil habitantes. Já o MDB comandará mais prefeituras de cidades com até 50 mil pessoas. PSD lidera na faixa de municípios de 50 mil a 300 mil habitantes. Dados são do 1º turno de 2020.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/23/psdb-lidera-em-cidades-populosas-e-mdb-nos-pequenos-municipios-veja-saldo-de-prefeituras-levando-em-conta-o-numero-de-habitantes.ghtml       
+
+19/11/2020        
+PP tem a maior taxa de sucesso na disputa para as prefeituras; cinco partidos não elegem nem sequer um prefeito no país
+Cálculo considera o número de candidaturas para a prefeitura e também o número de prefeitos eleitos no 1º turno destas eleições. Como cinco partidos não conseguiram eleger nem sequer um prefeito, eles ficaram com a taxa zerada.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/19/pp-tem-a-maior-taxa-de-sucesso-na-disputa-para-as-prefeituras-cinco-partidos-nao-elegem-nem-sequer-um-prefeito-no-pais.ghtml       
+
+17/11/2020        
+PSDB tem seu melhor desempenho em SP; o PT, na Bahia; e o MDB, no Rio Grande do Sul       
+MDB teve mais sucesso no RS, em MG e SC. PP obteve mais vitórias em Rio Grande do Sul, Bahia e Piauí. Bahia, Minas Gerais e Piauí foram os estados onde o PT conseguiu eleger mais prefeitos. Veja o número de prefeitos eleitos por partido e por estado no primeiro turno das eleições.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/17/pt-tem-seu-melhor-desempenho-na-bahia-mdb-e-pp-no-rio-grande-do-sul-psdb-em-sp-e-psd-no-parana.ghtml       
+
+16/11/2020        
+10 maiores partidos conquistam 81% das prefeituras eleitas no primeiro turno; veja quais são       
+Percentual de prefeitos eleitos pelos 10 maiores partidos tem diminuído - o que evidencia a fragmentação partidária. Há 33 partidos em funcionamento no Brasil. Levantamento considera dados do primeiro turno das últimas cinco eleições municipais.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/16/10-maiores-partidos-conquistam-81percent-das-prefeituras-eleitas-no-primeiro-turno-veja-quais-sao.ghtml       
+
+16/11/2020        
+Com resultado do 1º turno, PSD é o partido que irá governar o maior número de habitantes       
+Levantamento considera o número de habitantes em cada município e o resultado do primeiro turno. PSD deve comandar o Executivo de municípios onde vivem 20,6 milhões de pessoas. PSDB, PSB, MDB, PTB e PT foram os partidos que perderam mais habitantes governados na primeira etapa da disputa.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/16/com-resultado-do-1o-turno-psd-e-o-partido-que-ira-governar-o-maior-numero-de-habitantes.ghtml       
+
+16/11/2020        
+PSDB lidera nº de prefeitos eleitos no Sudeste, e PP, no Nordeste; veja dados por região       
+Dados do 1º turno de cada eleição mostram as prefeituras conquistadas por cada partido considerando cada região do Brasil. MDB elegeu mais prefeitos no Sul e no Norte; e DEM, no Centro-Oeste. Veja o desempenho de cada partido nas cinco regiões.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/16/psdb-lidera-no-de-prefeitos-eleitos-no-sudeste-e-pp-no-nordeste-veja-dados-por-regiao.ghtml       
+
+16/11/2020        
+PSDB e MDB perdem o maior nº de prefeituras e PT encolhe pela 2ª eleição seguida; DEM e PP são os que mais ganham em 2020       
+Número de prefeituras do PSDB caiu de 785 para 512, enquanto as do MDB foram de 1.035 para 774. O PT, que tinha 254, foi para 179. Já o DEM passou de 266 para 459; e o PP saltou de 495 para 682. Análise compara dados do primeiro turno de 2016 e 2020.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/16/psdb-e-mdb-perdem-o-maior-no-de-prefeituras-dem-e-pp-sao-os-que-mais-ganham.ghtml       
+
+16/11/2020        
+Na disputa pela reeleição, 56% dos prefeitos de grandes cidades conseguem mais votos do que em 2016       
+Mais da metade dos prefeitos que buscavam a reeleição em grandes cidades ficaram com saldo positivo. Em números absolutos, o prefeito de Belo Horizonte, Alexandre Kalil, registrou a maior alta; e Crivella, a maior queda. Veja a comparação dos votos no primeiro turno das eleições municipais de 2016 e 2020.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/16/na-disputa-pela-reeleicao-56percent-dos-prefeitos-de-grandes-cidades-conseguem-mais-votos-do-que-em-2016.ghtml       
+
 11/11/2020                
 Mais de 1,5 mil servidores federais se candidatam, mantêm salário e custam pelo menos R$ 46 milhões                
 Segundo o Ministério da Economia, eles não têm a opção de abrir mão da remuneração nesse tempo. Especialistas dizem que dinheiro recebido e licença do trabalho podem desequilibrar disputa em pequenas cidades.                
