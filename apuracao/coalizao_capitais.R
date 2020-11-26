@@ -40,7 +40,7 @@ eleitos_2020_v <- resultado_2020_v %>%
          sigla_partido = str_replace_all(sigla_partido, "REPUBLICANOS", "Republicanos"),
          sigla_partido = str_replace_all(sigla_partido, "SOLIDARIEDADE", "SD")) %>%
   filter(codigo_municipio_ibge == "2800308" |
-           codigo_municipio_ibge == "1400100" |
+           codigo_municipio_ibge == "1501402" |
            codigo_municipio_ibge == "1400100" |
            codigo_municipio_ibge == "5103403" |
            codigo_municipio_ibge == "2304400" |
