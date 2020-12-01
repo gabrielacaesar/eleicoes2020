@@ -2,6 +2,30 @@
 
 Códigos em R usados para a cobertura das eleições municipais de 2020.
 
+30/11/2020       
+29 partidos conseguem eleger prefeitos nestas eleições; 10 maiores siglas concentram 81% das prefeituras conquistadas       
+Apenas quatro partidos não elegeram nem sequer um prefeito: UP, PCO, PCB e PSTU. Percentual de prefeitos eleitos pelos 10 maiores partidos continua caindo, sinal da alta fragmentação partidária no Brasil. Levantamento mostra o índice das últimas cinco eleições municipais.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/30/29-partidos-conseguem-eleger-prefeitos-nestas-eleicoes-10-maiores-siglas-concentram-81percent-das-prefeituras-conquistadas.ghtml       
+
+30/11/2020       
+Sete dos 25 prefeitos eleitos de capitais devem tomar posse já com maioria na Câmara Municipal       
+Prefeitos eleitos em Salvador (BA), Campo Grande (MS), Recife (PE), Florianópolis (SC), Fortaleza (CE), Aracaju (SE) e Natal (RN) devem ter mais facilidade ao lidar com o Legislativo municipal. Prefeitos de 18 capitais ainda precisam articular com vereadores e dirigentes para formar maioria na Câmara Municipal.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/30/sete-dos-25-prefeitos-de-capitais-devem-tomar-posse-ja-com-maioria-na-camara-municipal.ghtml       
+
+29/11/2020       
+MDB encolhe, mas lidera ranking de prefeitos eleitos; PP e PSD crescem e ocupam 2ª e 3ª posições       
+Ranking mostra os partidos que mais conseguiram eleger prefeitos nestas eleições. O MDB perdeu prefeituras – havia conquistado 1.035 em 2016 e agora tem 784. O PP aumentou o número de prefeitos eleitos (foi de 495 para 685). Na terceira posição do ranking, o PSD pulou de 537 para 654. Análise compara dados completos das eleições de 2016 e 2020.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/29/mdb-encolhe-mas-lidera-ranking-de-prefeitos-eleitos-pp-e-psd-crescem-e-ocupam-2a-e-3a-posicoes.ghtml       
+
+29/11/2020       
+No 2º turno, MDB, PSDB e Podemos ganham maior nº de prefeituras; PT elege apenas 4 dos 15 candidatos       
+Das 57 disputas do segundo turno destas eleições, MDB foi o partido que mais ganhou prefeituras: 10. Já o PT, que estava no maior número de disputas, foi derrotado mais vezes e perdeu 11 das 15 disputas. PSDB e Podemos elegeram oito e seis prefeitos, respectivamente. Veja o número de eleitos por partido.       
+Por Gabriela Caesar, G1       
+https://g1.globo.com/politica/eleicoes/2020/eleicao-em-numeros/noticia/2020/11/29/no-2o-turno-mdb-psdb-e-podemos-ganham-maior-no-prefeituras-pt-elege-apenas-4-dos-15-candidatos.ghtml       
+
 24/11/2020       
 Prefeitos de 3,4 mil cidades devem ter apoio da maioria da Câmara Municipal       
 Levantamento considera os partidos da coligação dos prefeitos eleitos no 1º turno destas eleições e também os partidos dos vereadores eleitos. Prefeito é o chefe do Executivo municipal e precisa de apoio no Legislativo para governar. Em 132 municípios, todos os partidos da Câmara Municipal fizeram parte da coligação do prefeito eleito.       
