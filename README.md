@@ -1,5 +1,8 @@
 # eleicoes2020
 
+Lista de melhorias sugeridas ao TSE em dezembro de 2020 e janeiro de 2021.        
+https://docs.google.com/document/d/1LNCj0kQdG1WgwpKNLU63fZyYHna19gYQHZmJDgg3JRU/edit        
+
 Códigos em R usados para a cobertura das eleições municipais de 2020.
 
 30/11/2020       
