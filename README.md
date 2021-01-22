@@ -4,6 +4,7 @@
 https://docs.google.com/document/d/1LNCj0kQdG1WgwpKNLU63fZyYHna19gYQHZmJDgg3JRU/edit        
 
 -   Códigos em R usados para a cobertura das eleições municipais de 2020.
+-   Links para as respectivas reportagens.
 
 30/11/2020       
 29 partidos conseguem eleger prefeitos nestas eleições; 10 maiores siglas concentram 81% das prefeituras conquistadas       
