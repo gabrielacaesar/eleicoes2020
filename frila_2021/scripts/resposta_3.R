@@ -141,8 +141,25 @@ resultado_3 <- cand_2020 %>%
   filter(str_detect(DS_ELEICAO_2020, "Eleições Municipais 2020")) %>% # desconsidera eleicao suplementar
   filter(CARGO_2020 == "PREFEITO") %>%
   filter(SITUACAO_2020 == "ELEITO") %>%
+  rename(SG_PARTIDO = PARTIDO_2020) %>%
+  corrigir_partidos() %>%
+  definir_ideologia() %>%
+  rename(PARTIDO_2020 = SG_PARTIDO,
+         IDEOLOGIA_2020 = SG_IDEOLOGIA) %>%
   left_join(cand_2018, by = c("CPF_2020" = "CPF_2018")) %>%
+  replace(is.na(.), "-") %>%
+  rename(SG_PARTIDO = PARTIDO_2018) %>%
+  corrigir_partidos() %>%
+  definir_ideologia() %>%
+  rename(PARTIDO_2018 = SG_PARTIDO,
+         IDEOLOGIA_2018 = SG_IDEOLOGIA) %>%
   left_join(cand_2016, by = c("CPF_2020" = "CPF_2016")) %>%
+  replace(is.na(.), "-") %>%
+  rename(SG_PARTIDO = PARTIDO_2016) %>%
+  corrigir_partidos() %>%
+  definir_ideologia() %>%
+  rename(PARTIDO_2016 = SG_PARTIDO,
+         IDEOLOGIA_2016 = SG_IDEOLOGIA) %>%
   left_join(cand_2014, by = c("CPF_2020" = "CPF_2014")) %>%
   left_join(cand_2012, by = c("CPF_2020" = "CPF_2012")) %>%
   left_join(cand_2010, by = c("CPF_2020" = "CPF_2010")) %>%
@@ -152,8 +169,8 @@ resultado_3 <- cand_2020 %>%
   left_join(cand_2002, by = c("CPF_2020" = "CPF_2002")) %>%
   left_join(cand_2000, by = c("CPF_2020" = "CPF_2000")) %>%
   select(UF_2020, CIDADE_2020, CANDIDATO = CANDIDATO_2020,
-         PARTIDO_2020, SITUACAO_2020, CARGO_2018, PARTIDO_2018, SITUACAO_2018,
-         CARGO_2016, PARTIDO_2016, SITUACAO_2016, CARGO_2014, PARTIDO_2014, SITUACAO_2014,
+         PARTIDO_2020, IDEOLOGIA_2020, SITUACAO_2020, CARGO_2018, PARTIDO_2018, IDEOLOGIA_2018, SITUACAO_2018,
+         CARGO_2016, PARTIDO_2016, IDEOLOGIA_2016, SITUACAO_2016, CARGO_2014, PARTIDO_2014, SITUACAO_2014,
          CARGO_2012, PARTIDO_2012, SITUACAO_2012, CARGO_2010, PARTIDO_2010, SITUACAO_2010,
          CARGO_2008, PARTIDO_2008, SITUACAO_2008, CARGO_2006, PARTIDO_2006, SITUACAO_2006,
          CARGO_2004, PARTIDO_2004, SITUACAO_2004, CARGO_2002, PARTIDO_2002, SITUACAO_2002,
